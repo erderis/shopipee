@@ -1,6 +1,7 @@
 class Assets {
   static const _baseIcon = "assets/icons";
   static const _baseImages = "assets/images";
+  static const _baseLottie = "assets/lottie";
 
   //icons
   static const menuDashboard = "$_baseIcon/menu.svg";
@@ -17,7 +18,15 @@ class Assets {
   static const globe = "$_baseIcon/globe.svg";
   static const grid = "$_baseIcon/grid.svg";
   static const package = "$_baseIcon/package.svg";
+  // static const task = "$_baseIcon/task.svg";
+  // static const comment = "$_baseIcon/comment.svg";
+  // static const dock = "$_baseIcon/dock.svg";
+  // static const publish = "$_baseIcon/publish.svg";
+  // static const deal = "$_baseIcon/deal.svg";
 
   //images
   static const logo = "$_baseImages/logo.png";
+
+  //lottie
+  static const underConstruction = "$_baseLottie/under-construction.json";
 }

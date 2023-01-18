@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:portfolio/constants/assets/assets.dart';
 import 'package:portfolio/constants/colors/palette.dart';
+import 'package:portfolio/utils/helpers/responsive.dart';
 import 'package:portfolio/widgets/app_divider.dart';
 import 'package:portfolio/widgets/line_chart.dart';
 
@@ -14,7 +15,8 @@ class Statistic extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         color: Colors.white,
-        margin: EdgeInsets.all(defaultPadding),
+        margin: EdgeInsets.only(
+            left: defaultPadding, right: defaultPadding, top: defaultPadding),
         padding: EdgeInsets.all(defaultPadding + 10),
         child: Column(
           children: [
@@ -81,11 +83,13 @@ class Statistic extends StatelessWidget {
                         child: Text('Last Month Summary'))
                   ],
                 ),
-                SizedBox(
-                  width: 50,
-                ),
-                Expanded(
-                    child: SizedBox(height: 320, child: LineChartSample1())),
+                if (Responsive.isDesktop(context))
+                  SizedBox(
+                    width: 50,
+                  ),
+                if (Responsive.isDesktop(context))
+                  Expanded(
+                      child: SizedBox(height: 320, child: LineChartSample1())),
                 // Row(
                 //   crossAxisAlignment: CrossAxisAlignment.start,
                 //   children: [
@@ -118,6 +122,12 @@ class Statistic extends StatelessWidget {
                 // ),
               ],
             ),
+            if (!Responsive.isDesktop(context))
+              SizedBox(
+                height: 50,
+              ),
+            if (!Responsive.isDesktop(context))
+              SizedBox(height: 320, child: LineChartSample1()),
             SizedBox(
               height: 50,
             ),
@@ -125,13 +135,37 @@ class Statistic extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            GridView(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: Responsive.isDesktop(context)
+                      ? 4
+                      : Responsive.isTablet(context)
+                          ? 2
+                          : 1,
+                  childAspectRatio: 4),
+              shrinkWrap: true,
               children: [
-                ItemStatistic(
-                  asset: Assets.wallet,
-                  title: 'Wallet Balance',
-                  subtitle: '\$4,4512.89',
+                Row(
+                  children: [
+                    if (!Responsive.isDesktop(context))
+                      SizedBox(
+                        height: 40,
+                        child: VerticalDivider(
+                          color: Palette.divider,
+                          width: 0.5,
+                        ),
+                      ),
+                    if (!Responsive.isDesktop(context))
+                      SizedBox(
+                        width: 20,
+                      ),
+                    ItemStatistic(
+                      asset: Assets.wallet,
+                      title: 'Wallet Balance',
+                      subtitle: '\$4,4512.89',
+                    ),
+                  ],
                 ),
                 Row(
                   children: [
@@ -212,6 +246,7 @@ class ItemStatistic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SvgPicture.asset(asset),
         SizedBox(
@@ -223,6 +258,9 @@ class ItemStatistic extends StatelessWidget {
             Text(
               title,
               style: TextStyle(color: Palette.greyColor, fontSize: 12),
+            ),
+            SizedBox(
+              height: 5,
             ),
             Text(subtitle)
           ],

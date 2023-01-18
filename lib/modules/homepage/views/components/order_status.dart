@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:portfolio/constants/colors/palette.dart';
 import 'package:portfolio/constants/fonts/fonts.dart';
+import 'package:portfolio/utils/helpers/responsive.dart';
 
 import '../../../../constants/assets/assets.dart';
 
@@ -13,6 +14,7 @@ class OrderStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController search = TextEditingController();
     return Container(
         color: Colors.white,
         margin: EdgeInsets.only(right: defaultPadding + 10),
@@ -63,76 +65,36 @@ class OrderStatus extends StatelessWidget {
                     SizedBox(
                       width: 10,
                     ),
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 18, vertical: 11.5),
-                      decoration: BoxDecoration(
-                          color: Color(0xffF4F6F8),
-                          borderRadius: BorderRadius.circular(5)),
-                      child: SvgPicture.asset(Assets.alertCircle),
+                    ItemButtonOrder(
+                      icon: Assets.alertCircle,
+                      onTap: () {},
                     ),
                     SizedBox(
                       width: 10,
                     ),
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 18, vertical: 11.5),
-                      decoration: BoxDecoration(
-                          color: Color(0xffF4F6F8),
-                          borderRadius: BorderRadius.circular(5)),
-                      child: SvgPicture.asset(Assets.trash),
+                    ItemButtonOrder(
+                      icon: Assets.trash,
+                      onTap: () {},
                     ),
                     SizedBox(
                       width: 10,
                     ),
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 18, vertical: 11.5),
-                      decoration: BoxDecoration(
-                          color: Color(0xffF4F6F8),
-                          borderRadius: BorderRadius.circular(5)),
-                      child: SvgPicture.asset(Assets.printer),
-                    ),
+                    if (!Responsive.isMobile(context))
+                      ItemButtonOrder(
+                        icon: Assets.printer,
+                        onTap: () {},
+                      ),
                   ],
                 ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 150,
-                      height: 40,
-                      child: TextField(
-                        cursorColor: Palette.primaryColor,
-                        style: TextStyle(
-                            fontFamily: AppFontStyle.poppins,
-                            fontSize: 12,
-                            fontWeight: FontWeight.normal),
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(horizontal: 12),
-                          // fillColor: Color(0xffF4F6F8),
-                          // focusColor: Color(0xffF4F6F8),
-                          hintText: 'Search',
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xffF4F6F8))),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xffF4F6F8))),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 18, vertical: 11.5),
-                      decoration: BoxDecoration(
-                          color: Color(0xffF4F6F8),
-                          borderRadius: BorderRadius.circular(5)),
-                      child: SvgPicture.asset(Assets.printer),
-                    ),
-                  ],
-                )
+                if (Responsive.isDesktop(context))
+                  SearchAndPrint(search: search)
               ],
             ),
+            if (!Responsive.isDesktop(context))
+              SizedBox(
+                height: 30,
+              ),
+            if (!Responsive.isDesktop(context)) SearchAndPrint(search: search),
             SizedBox(
               height: 30,
             ),
@@ -206,5 +168,80 @@ class OrderStatus extends StatelessWidget {
             // )
           ],
         ));
+  }
+}
+
+class SearchAndPrint extends StatelessWidget {
+  const SearchAndPrint({
+    Key? key,
+    required this.search,
+  }) : super(key: key);
+
+  final TextEditingController search;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SizedBox(
+          width: 150,
+          height: 40,
+          child: TextField(
+            cursorColor: Palette.primaryColor,
+            controller: search,
+            style: TextStyle(
+                fontFamily: AppFontStyle.poppins,
+                fontSize: 12,
+                fontWeight: FontWeight.normal),
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(horizontal: 12),
+              // fillColor: Color(0xffF4F6F8),
+              // focusColor: Color(0xffF4F6F8),
+              hintText: 'Search',
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xffF4F6F8))),
+              focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xffF4F6F8))),
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        ItemButtonOrder(
+          icon: Assets.printer,
+          onTap: () {},
+        ),
+      ],
+    );
+  }
+}
+
+class ItemButtonOrder extends StatelessWidget {
+  const ItemButtonOrder({
+    Key? key,
+    required this.icon,
+    required this.onTap,
+  }) : super(key: key);
+
+  final String icon;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(5),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          child: Ink(
+            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 11.5),
+            color: Color(0xffF4F6F8),
+            child: SvgPicture.asset(icon),
+          ),
+        ),
+      ),
+    );
   }
 }

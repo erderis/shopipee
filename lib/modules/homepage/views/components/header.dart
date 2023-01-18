@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:portfolio/constants/assets/assets.dart';
 import 'package:portfolio/constants/colors/palette.dart';
+import 'package:portfolio/modules/homepage/cubit/menu_drawer_cubit.dart';
+
+import '../../../../utils/helpers/responsive.dart';
 
 class Header extends StatelessWidget {
   const Header({
@@ -16,7 +20,17 @@ class Header extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SvgPicture.asset(Assets.menuDashboard),
+          Visibility(
+            visible: !Responsive.isDesktop(context),
+            child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                    onTap: () {
+                      RepositoryProvider.of<MenuDrawerCubit>(context)
+                          .controlMenu();
+                    },
+                    child: SvgPicture.asset(Assets.menuDashboard))),
+          ),
           Row(
             children: [
               Padding(
@@ -25,7 +39,8 @@ class Header extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: SvgPicture.asset(Assets.bell),
+                      child: InkWell(
+                          onTap: () {}, child: SvgPicture.asset(Assets.bell)),
                     ),
                     Positioned(
                       right: 5,

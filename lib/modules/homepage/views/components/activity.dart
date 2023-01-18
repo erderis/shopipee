@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:portfolio/constants/colors/palette.dart';
+import 'package:portfolio/utils/helpers/responsive.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class RecentActivity extends StatelessWidget {
@@ -9,6 +11,43 @@ class RecentActivity extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dataTask = [
+      {
+        "time": "42 Min Ago",
+        "icon": "task",
+        "title": "Task Updated",
+        "subtitle": "Updated a Task",
+        "user": "Niko",
+      },
+      {
+        "time": "4 Hours ago",
+        "icon": "deal",
+        "title": "Deal Added",
+        "subtitle": "Created a Deal",
+        "user": "Tasya",
+      },
+      {
+        "time": "1 Day Ago",
+        "icon": "publish",
+        "title": "Article Published",
+        "subtitle": "Published an Article",
+        "user": "Rika",
+      },
+      {
+        "time": "2 Day Ago",
+        "icon": "comment",
+        "title": "Replyed Comment",
+        "subtitle": "Added a Comment",
+        "user": "Andy",
+      },
+      {
+        "time": "5 Day Ago",
+        "icon": "publish",
+        "title": "Article Published",
+        "subtitle": "Published an Article",
+        "user": "Minda",
+      },
+    ];
     return Container(
         color: Colors.white,
         padding: EdgeInsets.all(defaultPadding + 10),
@@ -23,23 +62,28 @@ class RecentActivity extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 65,
+              height: 30,
             ),
             AspectRatio(
-              aspectRatio: 1,
+              aspectRatio: Responsive.isMobile(context)
+                  ? 1.5
+                  : Responsive.isTablet(context)
+                      ? 1.7
+                      : 0.94,
               child: ListView.builder(
-                  itemCount: 3,
+                  itemCount: dataTask.length,
                   itemBuilder: (_, index) {
                     return _buildTimelineTile(
-                        indicator: const _IconIndicator(
-                          iconData: Icons.edit,
-                          size: 20,
-                        ),
-                        isFirst: index == 0,
-                        isLast: index == 2,
-                        hour: '32 Min Ago',
-                        title: 'Task Updated',
-                        subtitle: 'A beautiful afternoon to take a walk');
+                      indicator: _IconIndicator(
+                        icon: dataTask[index]['icon']!,
+                      ),
+                      isFirst: index == 0,
+                      isLast: index == dataTask.length - 1,
+                      hour: dataTask[index]['time']!,
+                      title: dataTask[index]['title']!,
+                      user: dataTask[index]['user']!,
+                      subtitle: dataTask[index]['subtitle']!,
+                    );
                   }),
             )
           ],
@@ -51,13 +95,15 @@ class RecentActivity extends StatelessWidget {
     required String hour,
     required String title,
     required String subtitle,
+    required String user,
     bool isFirst = false,
     bool isLast = false,
   }) {
     return TimelineTile(
       alignment: TimelineAlign.manual,
       lineXY: 0.3,
-      beforeLineStyle: LineStyle(color: Color(0xffCECECE), thickness: 1),
+      beforeLineStyle:
+          LineStyle(color: Color(0xffCECECE).withOpacity(0.2), thickness: 3),
       indicatorStyle:
           IndicatorStyle(width: 46, height: 46, indicator: indicator),
       isFirst: isFirst,
@@ -73,7 +119,7 @@ class RecentActivity extends StatelessWidget {
       ),
       endChild: Padding(
         padding:
-            const EdgeInsets.only(left: 16, right: 10, top: 10, bottom: 10),
+            const EdgeInsets.only(left: 16, right: 10, top: 30, bottom: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -82,10 +128,20 @@ class RecentActivity extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
             const SizedBox(height: 2),
-            Text(
-              subtitle,
-              style: TextStyle(color: Palette.greyColor, fontSize: 12),
-            ),
+            RichText(
+                text: TextSpan(
+                    text: '',
+                    style: TextStyle(color: Palette.greyColor, fontSize: 12),
+                    children: <TextSpan>[
+                  TextSpan(
+                    text: user + " ",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  TextSpan(text: subtitle),
+                ]))
           ],
         ),
       ),
@@ -95,38 +151,13 @@ class RecentActivity extends StatelessWidget {
 
 class _IconIndicator extends StatelessWidget {
   const _IconIndicator({
-    required this.iconData,
-    required this.size,
+    required this.icon,
   });
 
-  final IconData iconData;
-  final double size;
+  final String icon;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Palette.primaryColor,
-          ),
-        ),
-        Positioned.fill(
-          child: Align(
-            alignment: Alignment.center,
-            child: SizedBox(
-              height: 30,
-              width: 30,
-              child: Icon(
-                iconData,
-                size: size,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
+    return SvgPicture.asset('assets/icons/$icon.svg');
   }
 }

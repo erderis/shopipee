@@ -20,6 +20,7 @@ class Traffic extends StatelessWidget {
     ];
     return Container(
       color: Colors.white,
+      margin: EdgeInsets.only(right: defaultPadding, top: defaultPadding),
       padding: EdgeInsets.all(defaultPadding + 10),
       child: Column(
         children: [
