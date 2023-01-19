@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/constants/fonts/fonts.dart';
-import 'package:portfolio/modules/homepage/cubit/dropdown_cubit.dart';
-import 'package:portfolio/modules/homepage/cubit/menu_drawer_cubit.dart';
-import 'package:portfolio/modules/homepage/cubit/navbar_cubit.dart';
-import 'package:portfolio/modules/homepage/cubit/switcher_cubit.dart';
-import 'package:portfolio/modules/homepage/views/homepage.dart';
+import 'package:portfolio/core/homepage/cubit/dropdown_cubit.dart';
+import 'package:portfolio/core/homepage/cubit/menu_drawer_cubit.dart';
+import 'package:portfolio/core/homepage/cubit/navbar_cubit.dart';
+import 'package:portfolio/core/homepage/cubit/switcher_cubit.dart';
+import 'package:portfolio/core/homepage/views/homepage.dart';
 
 void main() {
   runApp(const MyApp());
