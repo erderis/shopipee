@@ -27,58 +27,60 @@ class SideMenu extends StatelessWidget {
 
     return Drawer(
       elevation: 0,
-      child: Container(
-        color: Colors.white,
-        child: BlocBuilder<NavbarCubit, int>(
-          builder: (context, currentPage) {
-            return Column(
-              children: [
-                Image.asset(
-                  Assets.logo,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                DrawerMenu(
-                  assetName: Assets.home,
-                  title: 'Overview',
-                  onTap: () => changeMenu(0),
-                  isSelected: currentPage == 0,
-                ),
-                DrawerMenu(
-                  assetName: Assets.package,
-                  title: 'Produk',
-                  onTap: () => changeMenu(1),
-                  isSelected: currentPage == 1,
-                ),
-                DrawerMenu(
-                  assetName: Assets.grid,
-                  title: 'Kategori',
-                  onTap: () => changeMenu(2),
-                  isSelected: currentPage == 2,
-                ),
-                DrawerMenu(
-                  assetName: Assets.bell,
-                  title: 'Notifikasi',
-                  onTap: () => changeMenu(3),
-                  isSelected: currentPage == 3,
-                ),
-                AppDivider(),
-                DrawerMenu(
-                  assetName: Assets.globe,
-                  title: 'Bahasa',
-                  onTap: () => changeMenu(4),
-                  isSelected: currentPage == 4,
-                ),
-                Spacer(),
-                ThemeChange(),
-                SizedBox(
-                  height: 20,
-                )
-              ],
-            );
-          },
-        ),
+      backgroundColor: Colors.white,
+      child: Stack(
+        children: [
+          BlocBuilder<NavbarCubit, int>(
+            builder: (context, currentPage) {
+              return ListView(
+                children: [
+                  Image.asset(
+                    Assets.logo,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  DrawerMenu(
+                    assetName: Assets.home,
+                    title: 'Overview',
+                    onTap: () => changeMenu(0),
+                    isSelected: currentPage == 0,
+                  ),
+                  DrawerMenu(
+                    assetName: Assets.package,
+                    title: 'Produk',
+                    onTap: () => changeMenu(1),
+                    isSelected: currentPage == 1,
+                  ),
+                  DrawerMenu(
+                    assetName: Assets.grid,
+                    title: 'Kategori',
+                    onTap: () => changeMenu(2),
+                    isSelected: currentPage == 2,
+                  ),
+                  DrawerMenu(
+                    assetName: Assets.bell,
+                    title: 'Notifikasi',
+                    onTap: () => changeMenu(3),
+                    isSelected: currentPage == 3,
+                  ),
+                  AppDivider(),
+                  DrawerMenu(
+                    assetName: Assets.globe,
+                    title: 'Bahasa',
+                    onTap: () => changeMenu(4),
+                    isSelected: currentPage == 4,
+                  ),
+                  // Spacer(),
+                  // SizedBox(
+                  //   height: 20,
+                  // )
+                ],
+              );
+            },
+          ),
+          Positioned(bottom: 20, left: 0, right: 0, child: ThemeChange()),
+        ],
       ),
     );
   }

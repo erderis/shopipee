@@ -15,3 +15,20 @@ class AppDivider extends StatelessWidget {
     );
   }
 }
+
+class AppVerticalDivider extends StatelessWidget {
+  const AppVerticalDivider({super.key, this.height = 40});
+
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: height,
+      child: VerticalDivider(
+        color: Palette.divider,
+        width: 0.5,
+      ),
+    );
+  }
+}
