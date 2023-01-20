@@ -5,8 +5,8 @@ class TrafficModel extends Traffic {
 
   factory TrafficModel.fromJson(Map<String, dynamic> json) {
     return TrafficModel(
-        percent: (json['percent'] as num).toInt(),
-        total: (json['total'] as num).toInt());
+        percent: (json['facebook']['percent'] as num).toInt(),
+        total: (json['facebook']['total'] as num).toInt());
   }
 
   Map<String, dynamic> toJson() {

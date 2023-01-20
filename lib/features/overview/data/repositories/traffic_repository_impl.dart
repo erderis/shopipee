@@ -1,5 +1,5 @@
 import 'package:portfolio/core/error/exception.dart';
-import 'package:portfolio/core/platform/network_info.dart';
+import 'package:portfolio/core/network/network_info.dart';
 import 'package:portfolio/features/overview/data/datasources/traffic_local.dart';
 import 'package:portfolio/features/overview/data/datasources/traffic_remote.dart';
 import 'package:portfolio/features/overview/domain/entities/traffic.dart';

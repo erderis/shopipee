@@ -6,11 +6,11 @@
 import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:portfolio/core/platform/network_info.dart' as _i6;
+import 'package:portfolio/core/network/network_info.dart' as _i5;
 import 'package:portfolio/features/overview/data/datasources/traffic_local.dart'
     as _i3;
 import 'package:portfolio/features/overview/data/datasources/traffic_remote.dart'
-    as _i5;
+    as _i6;
 import 'package:portfolio/features/overview/data/models/traffic_model.dart'
     as _i2;
 
@@ -69,14 +69,25 @@ class MockTrafficLocal extends _i1.Mock implements _i3.TrafficLocal {
       ) as _i4.Future<void>);
 }
 
-/// A class which mocks [TrafficRemote].
+/// A class which mocks [NetworkInfo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTrafficRemote extends _i1.Mock implements _i5.TrafficRemote {
-  MockTrafficRemote() {
+class MockNetworkInfo extends _i1.Mock implements _i5.NetworkInfo {
+  MockNetworkInfo() {
     _i1.throwOnMissingStub(this);
   }
 
+  @override
+  _i4.Future<bool> get isConnected => (super.noSuchMethod(
+        Invocation.getter(#isConnected),
+        returnValue: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
+}
+
+/// A class which mocks [TrafficRemote].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockTrafficRemote extends _i1.Mock implements _i6.TrafficRemote {
   @override
   _i4.Future<_i2.TrafficModel> getTraffic() => (super.noSuchMethod(
         Invocation.method(
@@ -90,20 +101,13 @@ class MockTrafficRemote extends _i1.Mock implements _i5.TrafficRemote {
             [],
           ),
         )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.TrafficModel>.value(_FakeTrafficModel_0(
+          this,
+          Invocation.method(
+            #getTraffic,
+            [],
+          ),
+        )),
       ) as _i4.Future<_i2.TrafficModel>);
-}
-
-/// A class which mocks [NetworkInfo].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i6.NetworkInfo {
-  MockNetworkInfo() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i4.Future<bool> get isConnected => (super.noSuchMethod(
-        Invocation.getter(#isConnected),
-        returnValue: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
 }

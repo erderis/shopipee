@@ -6,8 +6,14 @@ import 'package:portfolio/core/homepage/cubit/menu_drawer_cubit.dart';
 import 'package:portfolio/core/homepage/cubit/navbar_cubit.dart';
 import 'package:portfolio/core/homepage/cubit/switcher_cubit.dart';
 import 'package:portfolio/core/homepage/views/homepage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
