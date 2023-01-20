@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "663337299852",
+    "project_id": "erderis",
+    "storage_bucket": "erderis.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663337299852:android:3b5e8eccc7289a9c49f0a9",
+        "android_client_info": {
+          "package_name": "id.deris.portfolio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663337299852-fapsjr4dntvgmnm3ld96gu7jfhipu968.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCi_ZiuM01wxbvLo3VKQPUr1o3g9mi1wvY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663337299852-fapsjr4dntvgmnm3ld96gu7jfhipu968.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
