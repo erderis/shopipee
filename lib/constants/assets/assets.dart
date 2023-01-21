@@ -29,4 +29,5 @@ class Assets {
 
   //lottie
   static const underConstruction = "$_baseLottie/under-construction.json";
+  static const loading = "$_baseLottie/loading.json";
 }

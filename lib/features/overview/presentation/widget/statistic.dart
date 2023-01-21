@@ -277,6 +277,7 @@ class ItemStatistic extends StatelessWidget {
           children: [
             Text(
               title,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(color: Palette.greyColor, fontSize: 12),
             ),
             SizedBox(
