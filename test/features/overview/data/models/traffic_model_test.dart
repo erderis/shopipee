@@ -7,7 +7,8 @@ import 'package:portfolio/features/overview/domain/entities/traffic.dart';
 import '../../../../fixtures/fixture_reader.dart';
 
 void main() {
-  final tTrafficModel = TrafficModel(percent: 4, total: 150);
+  final tTrafficModel =
+      TrafficModel(facebook: 150, instagram: 300, direct: 450);
 
   test('should be a subclass of Traffic entity', () {
     expect(tTrafficModel, isA<Traffic>());
@@ -36,7 +37,11 @@ void main() {
     test('Should return a JSON map containing the proper data', () async {
       final result = tTrafficModel.toJson();
 
-      final expectedJsonMap = {"percent": 4, "total": 150};
+      final expectedJsonMap = {
+        "facebook": 150,
+        "instagram": 300,
+        "direct": 450
+      };
       expect(result, expectedJsonMap);
     });
   });

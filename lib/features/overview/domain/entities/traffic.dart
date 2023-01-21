@@ -1,13 +1,15 @@
 import 'package:equatable/equatable.dart';
 
 class Traffic extends Equatable {
-  final int percent;
-  final int total;
+  final int facebook;
+  final int instagram;
+  final int direct;
 
-  Traffic({required this.percent, required this.total});
+  Traffic(
+      {required this.facebook, required this.instagram, required this.direct});
 
   @override
-  List<Object?> get props => [percent, total];
+  List<Object?> get props => [facebook, instagram, direct];
 }
 
 // class Facebook {

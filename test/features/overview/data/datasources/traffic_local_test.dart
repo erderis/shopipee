@@ -44,7 +44,8 @@ void main() {
   });
 
   group('CacheTraffic', () {
-    final tTrafficModel = TrafficModel(percent: 4, total: 150);
+    final tTrafficModel =
+        TrafficModel(facebook: 150, instagram: 300, direct: 450);
 
     test('Should call sharedPreferences to cache the data', () {
       dataSource.cacheTraffic(tTrafficModel);

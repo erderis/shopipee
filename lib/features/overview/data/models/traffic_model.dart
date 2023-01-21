@@ -1,15 +1,19 @@
 import 'package:portfolio/features/overview/domain/entities/traffic.dart';
 
 class TrafficModel extends Traffic {
-  TrafficModel({required super.percent, required super.total});
+  TrafficModel(
+      {required super.facebook,
+      required super.instagram,
+      required super.direct});
 
   factory TrafficModel.fromJson(Map<String, dynamic> json) {
     return TrafficModel(
-        percent: (json['facebook']['percent'] as num).toInt(),
-        total: (json['facebook']['total'] as num).toInt());
+        facebook: (json['facebook'] as num).toInt(),
+        instagram: (json['instagram'] as num).toInt(),
+        direct: (json['direct'] as num).toInt());
   }
 
   Map<String, dynamic> toJson() {
-    return {"percent": percent, "total": total};
+    return {"facebook": facebook, "instagram": instagram, "direct": direct};
   }
 }

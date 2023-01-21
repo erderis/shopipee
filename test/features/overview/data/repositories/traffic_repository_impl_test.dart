@@ -32,7 +32,8 @@ void main() {
   });
 
   group('getTraffic', () {
-    final tTrafficModel = TrafficModel(percent: 4, total: 150);
+    final tTrafficModel =
+        TrafficModel(facebook: 150, instagram: 300, direct: 450);
     // final Traffic tTraffic = tTrafficModel;
 
     test('Should check if the device is online', () async {

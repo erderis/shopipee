@@ -20,6 +20,7 @@ class TrafficRepositoryImpl implements TrafficRepository {
   Future<Either<Failure, Traffic>> getTraffic() async {
     networkInfo.isConnected;
     try {
+      print('repo called');
       final remoteTraffic = await remoteDataSource.getTraffic();
       localDataSource.cacheTraffic(remoteTraffic);
       return Right(remoteTraffic);

@@ -14,12 +14,12 @@ void main() async {
   });
 
   group('getTraffic', () {
-    final tTraffic = TrafficModel(percent: 4, total: 150);
+    final tTraffic = TrafficModel(facebook: 150, instagram: 300, direct: 450);
     test('Should return Traffic Model when the response is sucessful',
         () async {
-      await instance.collection('traffic').add({
-        'facebook': {'percent': 4, 'total': 150}
-      });
+      await instance
+          .collection('traffic')
+          .add({'facebook': 150, 'instagram': 300, 'direct': 450});
       final result = await dataSource.getTraffic();
       expect(result, equals(tTraffic));
     });
@@ -33,6 +33,8 @@ void main() async {
       // Assert
       expect(() => call(), throwsA(const TypeMatcher<ServerException>()));
     });
+
+    //optional
     test('Should throw a server exception when the response is error',
         () async {
       // Arrange

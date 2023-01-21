@@ -19,7 +19,7 @@ void main() {
     usecase = GetTraffic(mockTrafficRepository);
   });
 
-  final tTraffic = Traffic(percent: 4, total: 150);
+  final tTraffic = Traffic(facebook: 150, instagram: 300, direct: 450);
 
   test('should get trafic from the repository', () async {
     when(mockTrafficRepository.getTraffic())
