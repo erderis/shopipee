@@ -18,14 +18,22 @@ class TrafficRepositoryImpl implements TrafficRepository {
       required this.networkInfo});
   @override
   Future<Either<Failure, Traffic>> getTraffic() async {
-    networkInfo.isConnected;
-    try {
-      print('repo called');
-      final remoteTraffic = await remoteDataSource.getTraffic();
-      localDataSource.cacheTraffic(remoteTraffic);
-      return Right(remoteTraffic);
-    } on ServerException {
-      return Left(ServerFailure());
+    if (await networkInfo.isConnected) {
+      try {
+        print('repo called');
+        final remoteTraffic = await remoteDataSource.getTraffic();
+        localDataSource.cacheTraffic(remoteTraffic);
+        return Right(remoteTraffic);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      try {
+        final localTraffic = await localDataSource.getLastTraffic();
+        return Right(localTraffic);
+      } on CacheException {
+        return Left(CacheFailure());
+      }
     }
   }
 }

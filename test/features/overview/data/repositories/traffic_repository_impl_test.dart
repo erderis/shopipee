@@ -74,5 +74,34 @@ void main() {
         expect(result, equals(Left(ServerFailure())));
       });
     });
+
+    group('device is offline', () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+      });
+      test('Should return last locally data when the cached data is present',
+          () async {
+        //arrange
+        when(mockTrafficLocal.getLastTraffic())
+            .thenAnswer((_) async => tTrafficModel);
+        //act
+        final result = await repository.getTraffic();
+        //assert
+        verifyZeroInteractions(mockTrafficRemote);
+        verify(mockTrafficLocal.getLastTraffic());
+        expect(result, equals(Right(tTrafficModel)));
+      });
+      test('Should throw cache failure when the cached data is not present',
+          () async {
+        //arrange
+        when(mockTrafficLocal.getLastTraffic()).thenThrow(CacheException());
+        //act
+        final result = await repository.getTraffic();
+        //assert
+        verifyZeroInteractions(mockTrafficRemote);
+        verify(mockTrafficLocal.getLastTraffic());
+        expect(result, equals(Left(CacheFailure())));
+      });
+    });
   });
 }
