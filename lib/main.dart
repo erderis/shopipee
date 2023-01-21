@@ -7,9 +7,13 @@ import 'package:portfolio/core/homepage/cubit/navbar_cubit.dart';
 import 'package:portfolio/core/homepage/cubit/switcher_cubit.dart';
 import 'package:portfolio/core/homepage/views/homepage.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:portfolio/utils/helpers/injection_container.dart' as di;
+import 'features/overview/presentation/bloc/traffic_bloc.dart';
 import 'firebase_options.dart';
+import 'utils/helpers/injection_container.dart';
 
 void main() async {
+  await di.init();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -46,6 +50,8 @@ class MyApp extends StatelessWidget {
             BlocProvider(
               create: (_) => MenuDrawerCubit(),
             ),
+            BlocProvider(
+                create: (_) => sl<TrafficBloc>()..add(GetTrafficEvent()))
           ],
           child: const HomePage(),
         ));
