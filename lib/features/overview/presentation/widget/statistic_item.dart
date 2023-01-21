@@ -344,10 +344,7 @@ class StatisticItem1 extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.05,
-                  width: 100,
-                  child: BarChartSample2()),
+              SizedBox(height: 100, width: 100, child: BarChartSample2()),
               Column(
                 children: [
                   Text(
