@@ -5,7 +5,7 @@ import '../widget/activity.dart';
 import '../widget/order_status.dart';
 import '../widget/statistic.dart';
 import '../widget/statistic_item.dart';
-import '../widget/traffic.dart';
+import '../widget/traffic_view.dart';
 
 class Overview extends StatelessWidget {
   const Overview({
@@ -21,10 +21,10 @@ class Overview extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(flex: 2, child: Statistic()),
-              if (Responsive.isDesktop(context)) Expanded(child: Traffic()),
+              if (Responsive.isDesktop(context)) Expanded(child: TrafficView()),
             ],
           ),
-          if (!Responsive.isDesktop(context)) Traffic(),
+          if (!Responsive.isDesktop(context)) TrafficView(),
           StatisticItem(),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
