@@ -12,12 +12,6 @@ class TrafficView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dataMap = <String, double>{
-      "Facebook": 2,
-      "Instagram": 4,
-      "Direct Search": 6,
-    };
-
     return Container(
       color: Colors.white,
       margin: EdgeInsets.only(right: defaultPadding, top: defaultPadding),

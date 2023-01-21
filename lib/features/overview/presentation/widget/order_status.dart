@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:portfolio/constants/colors/palette.dart';
 import 'package:portfolio/constants/fonts/fonts.dart';
+import 'package:portfolio/features/category/presentation/widgets/global_little_button.dart';
 import 'package:portfolio/utils/helpers/responsive.dart';
 
 import '../../../../constants/assets/assets.dart';
+import '../../../../widgets/global_table.dart';
 
 class OrderStatus extends StatelessWidget {
   const OrderStatus({
@@ -71,63 +73,48 @@ class OrderList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 350,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: DataTable2(
-            columnSpacing: 12,
-            horizontalMargin: 12,
-            minWidth: 600,
-            dataRowHeight: 70,
-            dividerThickness: 0.3,
-            dataTextStyle: TextStyle(
-                fontFamily: AppFontStyle.poppins,
-                color: Colors.black,
-                fontWeight: FontWeight.w300),
-            headingRowColor: MaterialStateColor.resolveWith(
-              (states) => Palette.secondaryColor,
-            ),
-            headingTextStyle: TextStyle(color: Colors.white),
-            columns: [
-              DataColumn2(
-                label: Text('INVOICE'),
-                size: ColumnSize.L,
-              ),
-              DataColumn(
-                label: Text('CUSTOMERS'),
-              ),
-              DataColumn(
-                label: Text('FROM'),
-              ),
-              DataColumn(
-                label: Text('PRICE'),
-              ),
-              DataColumn(
-                label: Text('STATUS'),
-                numeric: true,
-              ),
-            ],
-            rows: List<DataRow>.generate(
-                100,
-                (index) => DataRow(cells: [
-                      DataCell(Text('12366')),
-                      DataCell(Text('Ervan Herdiansyah')),
-                      DataCell(Text('Bandung')),
-                      DataCell(Text('\$10.2')),
-                      DataCell(Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                        decoration: BoxDecoration(
-                            color: Palette.primaryColor,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Text(
-                          'Dikirim',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ))
-                    ]))),
-      ),
-    );
+        height: 350,
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: GlobalTable(
+                columns: [
+                  DataColumn2(
+                    label: Text('INVOICE'),
+                    // size: ColumnSize.L,
+                  ),
+                  DataColumn(
+                    label: Text('CUSTOMERS'),
+                  ),
+                  DataColumn(
+                    label: Text('FROM'),
+                  ),
+                  DataColumn(
+                    label: Text('PRICE'),
+                  ),
+                  DataColumn(
+                    label: Text('STATUS'),
+                    // numeric: true,
+                  ),
+                ],
+                rows: List<DataRow>.generate(
+                    100,
+                    (index) => DataRow(cells: [
+                          DataCell(Text('12366')),
+                          DataCell(Text('Ervan Herdiansyah')),
+                          DataCell(Text('Bandung')),
+                          DataCell(Text('\$10.2')),
+                          DataCell(Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 10),
+                            decoration: BoxDecoration(
+                                color: Palette.primaryColor,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Text(
+                              'Dikirim',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ))
+                        ])))));
   }
 }
 
@@ -160,24 +147,17 @@ class ListButtonOrder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Palette.primaryColor,
-              elevation: 0,
+        GlobalLittleButton(
+            child: Row(
+              children: [
+                SvgPicture.asset(Assets.plusCircle),
+                SizedBox(
+                  width: 10,
+                ),
+                Text('Add')
+              ],
             ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              child: Row(
-                children: [
-                  SvgPicture.asset(Assets.plusCircle),
-                  SizedBox(
-                    width: 12,
-                  ),
-                  Text('Add')
-                ],
-              ),
-            )),
+            onTap: () {}),
         SizedBox(
           width: 10,
         ),
