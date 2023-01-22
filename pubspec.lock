@@ -394,6 +394,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.0"
+  http:
+    dependency: transitive
+    description:
+      name: http
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.13.5"
   http_multi_server:
     dependency: transitive
     description:
@@ -408,13 +415,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.2"
-  internet_connection_checker:
+  internet_connection_checker_plus:
     dependency: "direct main"
     description:
-      name: internet_connection_checker
+      name: internet_connection_checker_plus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0+1"
+    version: "1.0.1"
   io:
     dependency: transitive
     description:

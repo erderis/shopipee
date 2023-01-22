@@ -9,7 +9,6 @@ import 'package:portfolio/features/overview/data/datasources/traffic_local.dart'
 import 'package:portfolio/features/overview/data/datasources/traffic_remote.dart';
 import 'package:portfolio/features/overview/data/models/traffic_model.dart';
 import 'package:portfolio/features/overview/data/repositories/traffic_repository_impl.dart';
-import 'package:portfolio/features/overview/domain/entities/traffic.dart';
 
 import 'traffic_repository_impl_test.mocks.dart';
 

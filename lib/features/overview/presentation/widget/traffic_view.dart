@@ -32,12 +32,9 @@ class TrafficView extends StatelessWidget {
             aspectRatio: 2,
             child: BlocBuilder<TrafficBloc, TrafficState>(
               builder: (context, state) {
-                if (state is TrafficEmpty || state is TrafficError) {
-                  return PieChartItem(
-                    facebook: 1,
-                    instagram: 1,
-                    direct: 1,
-                  );
+                if (state is TrafficLoading) {
+                  return AspectRatio(
+                      aspectRatio: 1.5, child: Lottie.asset(Assets.loading));
                 } else if (state is TrafficLoaded) {
                   return PieChartItem(
                     facebook: state.traffic.facebook,
@@ -45,7 +42,11 @@ class TrafficView extends StatelessWidget {
                     direct: state.traffic.facebook,
                   );
                 } else {
-                  return Text('Loading...');
+                  return PieChartItem(
+                    facebook: 1,
+                    instagram: 1,
+                    direct: 1,
+                  );
                 }
               },
             ),
@@ -57,12 +58,8 @@ class TrafficView extends StatelessWidget {
             constraints: BoxConstraints(maxWidth: 350),
             child: BlocBuilder<TrafficBloc, TrafficState>(
               builder: (context, state) {
-                if (state is TrafficEmpty || state is TrafficError) {
-                  return ItemsTraffic(
-                    facebook: 0,
-                    instagram: 0,
-                    direct: 0,
-                  );
+                if (state is TrafficLoading) {
+                  return SizedBox();
                 } else if (state is TrafficLoaded) {
                   return ItemsTraffic(
                     facebook: state.traffic.facebook,
@@ -70,8 +67,11 @@ class TrafficView extends StatelessWidget {
                     direct: state.traffic.direct,
                   );
                 } else {
-                  return AspectRatio(
-                      aspectRatio: 1.5, child: Lottie.asset(Assets.loading));
+                  return ItemsTraffic(
+                    facebook: 0,
+                    instagram: 0,
+                    direct: 0,
+                  );
                 }
               },
             ),

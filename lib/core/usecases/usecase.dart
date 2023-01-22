@@ -9,3 +9,11 @@ abstract class UseCase<Type, Params> {
 class NoParams extends Equatable {
   List<Object?> get props => [];
 }
+
+class CategoryParams extends Equatable {
+  final String id;
+
+  CategoryParams(this.id);
+  @override
+  List<Object?> get props => [id];
+}

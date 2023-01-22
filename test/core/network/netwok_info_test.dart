@@ -1,18 +1,18 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import "package:mockito/annotations.dart";
 import 'package:mockito/mockito.dart';
 import 'package:portfolio/core/network/network_info.dart';
 
 import 'netwok_info_test.mocks.dart';
 
-@GenerateMocks([InternetConnectionChecker])
+@GenerateMocks([InternetConnectionCheckerPlus])
 void main() {
   late NetworkInfoImpl networkInfo;
-  late MockInternetConnectionChecker mockDataConnectionChecker;
+  late MockInternetConnectionCheckerPlus mockDataConnectionChecker;
 
   setUp(() {
-    mockDataConnectionChecker = MockInternetConnectionChecker();
+    mockDataConnectionChecker = MockInternetConnectionCheckerPlus();
     networkInfo = NetworkInfoImpl(mockDataConnectionChecker);
   });
 

@@ -20,7 +20,7 @@ void main() {
       final Map<String, dynamic> jsonMap = json.decode(fixture('traffic.json'));
       print(jsonMap);
       final result = TrafficModel.fromJson(jsonMap);
-      expect(result, tTrafficModel);
+      expect(result, equals(tTrafficModel));
     });
 
     test(
@@ -29,7 +29,7 @@ void main() {
       final Map<String, dynamic> jsonMap =
           json.decode(fixture('traffic_double.json'));
       final result = TrafficModel.fromJson(jsonMap);
-      expect(result, tTrafficModel);
+      expect(result, equals(tTrafficModel));
     });
   });
 
@@ -42,7 +42,7 @@ void main() {
         "instagram": 300,
         "direct": 450
       };
-      expect(result, expectedJsonMap);
+      expect(result, equals(expectedJsonMap));
     });
   });
 }

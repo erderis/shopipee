@@ -1,6 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:portfolio/core/network/network_info.dart';
 import 'package:portfolio/features/overview/data/datasources/traffic_local.dart';
 import 'package:portfolio/features/overview/data/datasources/traffic_remote.dart';
@@ -34,12 +36,21 @@ Future<void> init() async {
       await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton(() => FirebaseFirestore.instance);
-  final customInstance = InternetConnectionChecker.createInstance(
-    // checkTimeout: const Duration(seconds: 3), // Custom check timeout
-    // checkInterval: const Duration(seconds: 3), // Custom check interval
-    addresses: [],
+
+  final List<AddressCheckOptions> _defaultAddresses = [
+    AddressCheckOptions(
+      Uri.parse('https://cloudflare-dns.com/dns-query'),
+    ),
+    AddressCheckOptions(
+      Uri.parse('https://mozilla.cloudflare-dns.com/dns-query'),
+    ),
+  ];
+  final customInstance = InternetConnectionCheckerPlus.createInstance(
+    checkTimeout: const Duration(seconds: 3), // Custom check timeout
+    checkInterval: const Duration(seconds: 3), // Custom check interval
+    // addresses: _defaultAddresses,
   );
-  sl.registerSingleton<InternetConnectionChecker>(
+  sl.registerSingleton<InternetConnectionCheckerPlus>(
     customInstance,
   );
 }

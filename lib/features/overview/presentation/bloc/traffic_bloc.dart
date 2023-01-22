@@ -19,7 +19,6 @@ class TrafficBloc extends Bloc<TrafficEvent, TrafficState> {
   TrafficBloc({required this.getTraffic}) : super(TrafficEmpty()) {
     on<TrafficEvent>((event, emit) async {
       emit(TrafficLoading());
-      print('bloc called');
       final failureOrTraffic = await getTraffic(NoParams());
       failureOrTraffic.fold(
           (failure) =>

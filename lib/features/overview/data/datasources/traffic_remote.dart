@@ -15,7 +15,11 @@ class TrafficRemoteImpl implements TrafficRemote {
     try {
       late Map<String, dynamic> data;
       await db.collection("traffic").get().then((value) {
-        data = value.docs[0].data();
+        if (value.docs.isEmpty) {
+          throw ServerException();
+        } else {
+          data = value.docs[0].data();
+        }
       }).onError((error, stackTrace) {
         throw ServerException();
       });
