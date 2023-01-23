@@ -8,20 +8,18 @@ import 'package:dartz/dartz.dart';
 import 'package:portfolio/features/overview/domain/repositories/traffic_repository.dart';
 
 class TrafficRepositoryImpl implements TrafficRepository {
-  final TrafficRemote remoteDataSource;
-  final TrafficLocal localDataSource;
+  final TrafficRemote remote;
+  final TrafficLocal local;
   final NetworkInfo networkInfo;
 
   TrafficRepositoryImpl(
-      {required this.remoteDataSource,
-      required this.localDataSource,
-      required this.networkInfo});
+      {required this.remote, required this.local, required this.networkInfo});
   @override
   Future<Either<Failure, Traffic>> getTraffic() async {
     if (await networkInfo.isConnected) {
       try {
-        final remoteTraffic = await remoteDataSource.getTraffic();
-        localDataSource.cacheTraffic(remoteTraffic);
+        final remoteTraffic = await remote.getTraffic();
+        local.cacheTraffic(remoteTraffic);
 
         return Right(remoteTraffic);
       } on ServerException {
@@ -29,7 +27,7 @@ class TrafficRepositoryImpl implements TrafficRepository {
       }
     } else {
       try {
-        final localTraffic = await localDataSource.getLastTraffic();
+        final localTraffic = await local.getLastTraffic();
         return Right(localTraffic);
       } on CacheException {
         return Left(CacheFailure());

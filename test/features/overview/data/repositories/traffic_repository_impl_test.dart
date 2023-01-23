@@ -25,8 +25,8 @@ void main() {
     mockTrafficLocal = MockTrafficLocal();
     mockNetworkInfo = MockNetworkInfo();
     repository = TrafficRepositoryImpl(
-        remoteDataSource: mockTrafficRemote,
-        localDataSource: mockTrafficLocal,
+        remote: mockTrafficRemote,
+        local: mockTrafficLocal,
         networkInfo: mockNetworkInfo);
   });
 
