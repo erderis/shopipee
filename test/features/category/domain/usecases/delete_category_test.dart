@@ -30,7 +30,8 @@ void main() {
     when(mockCategoryRepository.deleteCategory(id: 'ncu7v3k7keq3tmz99vEF'))
         .thenAnswer((_) async => Right(tCategory));
     //act
-    final result = await usecase(DeleteCategoryParams('ncu7v3k7keq3tmz99vEF'));
+    final result =
+        await usecase(DeleteCategoryParams(id: 'ncu7v3k7keq3tmz99vEF'));
     //assert
     expect(result, Right(tCategory));
     verify(mockCategoryRepository.deleteCategory(id: 'ncu7v3k7keq3tmz99vEF'));

@@ -160,15 +160,15 @@ class MockUpdateCategory extends _i1.Mock implements _i10.UpdateCategory {
         ),
       ) as _i2.CategoryRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, _i7.Category>> call(
+  _i5.Future<_i3.Either<_i6.Failure, void>> call(
           _i10.UpdateCategoryParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i5.Future<_i3.Either<_i6.Failure, _i7.Category>>.value(
-            _FakeEither_1<_i6.Failure, _i7.Category>(
+        returnValue: _i5.Future<_i3.Either<_i6.Failure, void>>.value(
+            _FakeEither_1<_i6.Failure, void>(
           this,
           Invocation.method(
             #call,
@@ -176,15 +176,15 @@ class MockUpdateCategory extends _i1.Mock implements _i10.UpdateCategory {
           ),
         )),
         returnValueForMissingStub:
-            _i5.Future<_i3.Either<_i6.Failure, _i7.Category>>.value(
-                _FakeEither_1<_i6.Failure, _i7.Category>(
+            _i5.Future<_i3.Either<_i6.Failure, void>>.value(
+                _FakeEither_1<_i6.Failure, void>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i5.Future<_i3.Either<_i6.Failure, _i7.Category>>);
+      ) as _i5.Future<_i3.Either<_i6.Failure, void>>);
 }
 
 /// A class which mocks [DeleteCategory].

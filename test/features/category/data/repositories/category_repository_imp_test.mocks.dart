@@ -3,16 +3,16 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:portfolio/core/network/network_info.dart' as _i5;
 import 'package:portfolio/features/category/data/datasources/category_local.dart'
-    as _i3;
+    as _i2;
 import 'package:portfolio/features/category/data/datasources/category_remote.dart'
     as _i6;
 import 'package:portfolio/features/category/data/models/category_model.dart'
-    as _i2;
+    as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -25,44 +25,34 @@ import 'package:portfolio/features/category/data/models/category_model.dart'
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeCategoryModel_0 extends _i1.SmartFake implements _i2.CategoryModel {
-  _FakeCategoryModel_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
 /// A class which mocks [CategoryLocal].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCategoryLocal extends _i1.Mock implements _i3.CategoryLocal {
+class MockCategoryLocal extends _i1.Mock implements _i2.CategoryLocal {
   MockCategoryLocal() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<List<_i2.CategoryModel>> getLastCategory() => (super.noSuchMethod(
+  _i3.Future<List<_i4.CategoryModel>> getLastCategory() => (super.noSuchMethod(
         Invocation.method(
           #getLastCategory,
           [],
         ),
         returnValue:
-            _i4.Future<List<_i2.CategoryModel>>.value(<_i2.CategoryModel>[]),
-      ) as _i4.Future<List<_i2.CategoryModel>>);
+            _i3.Future<List<_i4.CategoryModel>>.value(<_i4.CategoryModel>[]),
+      ) as _i3.Future<List<_i4.CategoryModel>>);
   @override
-  _i4.Future<void> cacheListCategory(
-          List<_i2.CategoryModel>? listCategoryToCache) =>
+  _i3.Future<void> cacheListCategory(
+          List<_i4.CategoryModel>? listCategoryToCache) =>
       (super.noSuchMethod(
         Invocation.method(
           #cacheListCategory,
           [listCategoryToCache],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
 }
 
 /// A class which mocks [NetworkInfo].
@@ -74,10 +64,10 @@ class MockNetworkInfo extends _i1.Mock implements _i5.NetworkInfo {
   }
 
   @override
-  _i4.Future<bool> get isConnected => (super.noSuchMethod(
+  _i3.Future<bool> get isConnected => (super.noSuchMethod(
         Invocation.getter(#isConnected),
-        returnValue: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
+        returnValue: _i3.Future<bool>.value(false),
+      ) as _i3.Future<bool>);
 }
 
 /// A class which mocks [CategoryRemote].
@@ -85,70 +75,43 @@ class MockNetworkInfo extends _i1.Mock implements _i5.NetworkInfo {
 /// See the documentation for Mockito's code generation for more information.
 class MockCategoryRemote extends _i1.Mock implements _i6.CategoryRemote {
   @override
-  _i4.Future<List<_i2.CategoryModel>> getCategory() => (super.noSuchMethod(
+  _i3.Future<List<_i4.CategoryModel>> getCategory() => (super.noSuchMethod(
         Invocation.method(
           #getCategory,
           [],
         ),
         returnValue:
-            _i4.Future<List<_i2.CategoryModel>>.value(<_i2.CategoryModel>[]),
+            _i3.Future<List<_i4.CategoryModel>>.value(<_i4.CategoryModel>[]),
         returnValueForMissingStub:
-            _i4.Future<List<_i2.CategoryModel>>.value(<_i2.CategoryModel>[]),
-      ) as _i4.Future<List<_i2.CategoryModel>>);
+            _i3.Future<List<_i4.CategoryModel>>.value(<_i4.CategoryModel>[]),
+      ) as _i3.Future<List<_i4.CategoryModel>>);
   @override
-  _i4.Future<_i2.CategoryModel> addCategory(_i2.CategoryModel? dataCategory) =>
+  _i3.Future<void> addCategory(_i4.CategoryModel? dataCategory) =>
       (super.noSuchMethod(
         Invocation.method(
           #addCategory,
           [dataCategory],
         ),
-        returnValue: _i4.Future<_i2.CategoryModel>.value(_FakeCategoryModel_0(
-          this,
-          Invocation.method(
-            #addCategory,
-            [dataCategory],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i4.Future<_i2.CategoryModel>.value(_FakeCategoryModel_0(
-          this,
-          Invocation.method(
-            #addCategory,
-            [dataCategory],
-          ),
-        )),
-      ) as _i4.Future<_i2.CategoryModel>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
   @override
-  _i4.Future<_i2.CategoryModel> updateCategory(
-          _i2.CategoryModel? dataCategory) =>
+  _i3.Future<void> updateCategory(_i4.CategoryModel? dataCategory) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateCategory,
           [dataCategory],
         ),
-        returnValue: _i4.Future<_i2.CategoryModel>.value(_FakeCategoryModel_0(
-          this,
-          Invocation.method(
-            #updateCategory,
-            [dataCategory],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i4.Future<_i2.CategoryModel>.value(_FakeCategoryModel_0(
-          this,
-          Invocation.method(
-            #updateCategory,
-            [dataCategory],
-          ),
-        )),
-      ) as _i4.Future<_i2.CategoryModel>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
   @override
-  _i4.Future<void> deleteCategory(String? id) => (super.noSuchMethod(
+  _i3.Future<void> deleteCategory(String? id) => (super.noSuchMethod(
         Invocation.method(
           #deleteCategory,
           [id],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
 }

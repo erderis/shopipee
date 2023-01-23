@@ -68,7 +68,7 @@ class MockCategoryRepository extends _i1.Mock
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Category>>>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.Category>> addCategory(
+  _i4.Future<_i2.Either<_i5.Failure, void>> addCategory(
           {required _i7.CategoryModel? dataCategory}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -76,8 +76,8 @@ class MockCategoryRepository extends _i1.Mock
           [],
           {#dataCategory: dataCategory},
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Category>>.value(
-            _FakeEither_0<_i5.Failure, _i6.Category>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, void>>.value(
+            _FakeEither_0<_i5.Failure, void>(
           this,
           Invocation.method(
             #addCategory,
@@ -86,8 +86,8 @@ class MockCategoryRepository extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.Either<_i5.Failure, _i6.Category>>.value(
-                _FakeEither_0<_i5.Failure, _i6.Category>(
+            _i4.Future<_i2.Either<_i5.Failure, void>>.value(
+                _FakeEither_0<_i5.Failure, void>(
           this,
           Invocation.method(
             #addCategory,
@@ -95,9 +95,9 @@ class MockCategoryRepository extends _i1.Mock
             {#dataCategory: dataCategory},
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Category>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, void>>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.Category>> updateCategory(
+  _i4.Future<_i2.Either<_i5.Failure, void>> updateCategory(
           {required _i7.CategoryModel? dataCategory}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -105,8 +105,8 @@ class MockCategoryRepository extends _i1.Mock
           [],
           {#dataCategory: dataCategory},
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Category>>.value(
-            _FakeEither_0<_i5.Failure, _i6.Category>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, void>>.value(
+            _FakeEither_0<_i5.Failure, void>(
           this,
           Invocation.method(
             #updateCategory,
@@ -115,8 +115,8 @@ class MockCategoryRepository extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.Either<_i5.Failure, _i6.Category>>.value(
-                _FakeEither_0<_i5.Failure, _i6.Category>(
+            _i4.Future<_i2.Either<_i5.Failure, void>>.value(
+                _FakeEither_0<_i5.Failure, void>(
           this,
           Invocation.method(
             #updateCategory,
@@ -124,7 +124,7 @@ class MockCategoryRepository extends _i1.Mock
             {#dataCategory: dataCategory},
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Category>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, void>>);
   @override
   _i4.Future<_i2.Either<_i5.Failure, void>> deleteCategory(
           {required String? id}) =>

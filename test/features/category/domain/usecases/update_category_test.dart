@@ -38,7 +38,8 @@ void main() {
     when(mockCategoryRepository.updateCategory(dataCategory: tCategoryModel))
         .thenAnswer((_) async => Right(tCategory));
     //act
-    final result = await usecase(UpdateCategoryParams(tCategoryModel));
+    final result =
+        await usecase(UpdateCategoryParams(dataCategory: tCategoryModel));
     //assert
     expect(result, Right(tCategory));
     verify(mockCategoryRepository.updateCategory(dataCategory: tCategoryModel));
