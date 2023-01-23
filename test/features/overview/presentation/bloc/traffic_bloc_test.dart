@@ -48,17 +48,7 @@ void main() {
             TrafficLoaded(traffic: tTraffic),
           ]);
   blocTest<TrafficBloc, TrafficState>(
-      'Should emit [Loading, Loaded] when data is gotten sucessfully',
-      build: () => trafficBloc,
-      setUp: () =>
-          when(mockGetTraffic(any)).thenAnswer((_) async => Right(tTraffic)),
-      act: (bloc) => bloc.add(GetTrafficEvent()),
-      expect: () => <TrafficState>[
-            TrafficLoading(),
-            TrafficLoaded(traffic: tTraffic),
-          ]);
-  blocTest<TrafficBloc, TrafficState>(
-      'Should emit [Loading, Error] when getting data fails',
+      'Should emit [Loading, Error] when getting data server fails',
       build: () => trafficBloc,
       setUp: () => when(mockGetTraffic(any))
           .thenAnswer((_) async => Left(ServerFailure())),
@@ -68,7 +58,7 @@ void main() {
             TrafficError(message: SERVER_FAILURE_MESSAGE)
           ]);
   blocTest<TrafficBloc, TrafficState>(
-      'Should emit [Loading, Error]  with a proper message for the error when getting data fails',
+      'Should emit [Loading, Error] when getting data server fails',
       build: () => trafficBloc,
       setUp: () => when(mockGetTraffic(any))
           .thenAnswer((_) async => Left(CacheFailure())),

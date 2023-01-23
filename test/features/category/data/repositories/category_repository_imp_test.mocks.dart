@@ -143,26 +143,12 @@ class MockCategoryRemote extends _i1.Mock implements _i6.CategoryRemote {
         )),
       ) as _i4.Future<_i2.CategoryModel>);
   @override
-  _i4.Future<_i2.CategoryModel> deleteCategory(String? id) =>
-      (super.noSuchMethod(
+  _i4.Future<void> deleteCategory(String? id) => (super.noSuchMethod(
         Invocation.method(
           #deleteCategory,
           [id],
         ),
-        returnValue: _i4.Future<_i2.CategoryModel>.value(_FakeCategoryModel_0(
-          this,
-          Invocation.method(
-            #deleteCategory,
-            [id],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i4.Future<_i2.CategoryModel>.value(_FakeCategoryModel_0(
-          this,
-          Invocation.method(
-            #deleteCategory,
-            [id],
-          ),
-        )),
-      ) as _i4.Future<_i2.CategoryModel>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }

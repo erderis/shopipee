@@ -5,9 +5,9 @@ import 'package:portfolio/features/category/domain/entities/category.dart';
 
 abstract class CategoryRepository {
   Future<Either<Failure, List<Category>>> getCategory();
-  Future<Either<Failure, Category>> addCategory(
+  Future<Either<Failure, void>> addCategory(
       {required CategoryModel dataCategory});
-  Future<Either<Failure, Category>> updateCategory(
+  Future<Either<Failure, void>> updateCategory(
       {required CategoryModel dataCategory});
   Future<Either<Failure, void>> deleteCategory({required String id});
 }

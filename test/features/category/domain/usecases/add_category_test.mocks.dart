@@ -126,7 +126,7 @@ class MockCategoryRepository extends _i1.Mock
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Category>>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.Category>> deleteCategory(
+  _i4.Future<_i2.Either<_i5.Failure, void>> deleteCategory(
           {required String? id}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -134,8 +134,8 @@ class MockCategoryRepository extends _i1.Mock
           [],
           {#id: id},
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Category>>.value(
-            _FakeEither_0<_i5.Failure, _i6.Category>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, void>>.value(
+            _FakeEither_0<_i5.Failure, void>(
           this,
           Invocation.method(
             #deleteCategory,
@@ -144,8 +144,8 @@ class MockCategoryRepository extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.Either<_i5.Failure, _i6.Category>>.value(
-                _FakeEither_0<_i5.Failure, _i6.Category>(
+            _i4.Future<_i2.Either<_i5.Failure, void>>.value(
+                _FakeEither_0<_i5.Failure, void>(
           this,
           Invocation.method(
             #deleteCategory,
@@ -153,5 +153,5 @@ class MockCategoryRepository extends _i1.Mock
             {#id: id},
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Category>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, void>>);
 }

@@ -4,8 +4,8 @@ import 'package:portfolio/features/category/data/models/category_model.dart';
 
 abstract class CategoryRemote {
   Future<List<CategoryModel>> getCategory();
-  Future<CategoryModel> addCategory(CategoryModel dataCategory);
-  Future<CategoryModel> updateCategory(CategoryModel dataCategory);
+  Future<void> addCategory(CategoryModel dataCategory);
+  Future<void> updateCategory(CategoryModel dataCategory);
   Future<void> deleteCategory(String id);
 }
 
@@ -30,31 +30,24 @@ class CategoryRemoteImpl implements CategoryRemote {
   }
 
   @override
-  Future<CategoryModel> addCategory(CategoryModel dataCategory) async {
+  Future<void> addCategory(CategoryModel dataCategory) async {
     try {
-      final response = await db
+      await db
           .collection(CATEGORY_COLLECTION_NAME)
-          .add(dataCategory.toJson());
-      await response.update({'id': response.id});
-      final newCategory = await response.get();
-      return CategoryModel.fromJson(newCategory.data()!);
+          .doc(dataCategory.id)
+          .set(dataCategory.toJson());
     } catch (_) {
       throw ServerException();
     }
   }
 
   @override
-  Future<CategoryModel> updateCategory(CategoryModel dataCategory) async {
+  Future<void> updateCategory(CategoryModel dataCategory) async {
     try {
       await db
           .collection(CATEGORY_COLLECTION_NAME)
           .doc(dataCategory.id)
           .update(dataCategory.toJson());
-      final newCategory = await db
-          .collection(CATEGORY_COLLECTION_NAME)
-          .doc(dataCategory.id)
-          .get();
-      return CategoryModel.fromJson(newCategory.data()!);
     } catch (_) {
       throw ServerException();
     }

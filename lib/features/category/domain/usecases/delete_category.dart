@@ -17,7 +17,7 @@ class DeleteCategory implements UseCase<void, DeleteCategoryParams> {
 class DeleteCategoryParams extends Equatable {
   final String id;
 
-  DeleteCategoryParams(this.id);
+  DeleteCategoryParams({required this.id});
   @override
   List<Object?> get props => [id];
 }

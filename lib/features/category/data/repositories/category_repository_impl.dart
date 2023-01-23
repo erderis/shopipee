@@ -38,7 +38,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
   }
 
   @override
-  Future<Either<Failure, Category>> addCategory(
+  Future<Either<Failure, void>> addCategory(
       {required CategoryModel dataCategory}) async {
     if (await networkInfo.isConnected) {
       try {
@@ -53,7 +53,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
   }
 
   @override
-  Future<Either<Failure, Category>> updateCategory(
+  Future<Either<Failure, void>> updateCategory(
       {required CategoryModel dataCategory}) async {
     if (await networkInfo.isConnected) {
       try {
@@ -72,8 +72,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
   Future<Either<Failure, void>> deleteCategory({required String id}) async {
     if (await networkInfo.isConnected) {
       try {
-        await remote.deleteCategory(id);
-        return Right(id);
+        return Right(await remote.deleteCategory(id));
       } on ServerException {
         return Left(ServerFailure());
       }
