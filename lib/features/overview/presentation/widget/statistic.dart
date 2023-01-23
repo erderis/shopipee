@@ -5,6 +5,7 @@ import 'package:portfolio/constants/colors/palette.dart';
 import 'package:portfolio/utils/helpers/responsive.dart';
 import 'package:portfolio/widgets/app_divider.dart';
 
+import '../../../../widgets/global_button.dart';
 import 'line_chart.dart';
 
 class Statistic extends StatelessWidget {
@@ -236,15 +237,10 @@ class OverviewData extends StatelessWidget {
           ],
         ),
         SizedBox(height: 25),
-        ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-                backgroundColor: Palette.primaryColor,
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6)),
-                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20)),
-            child: Text('Last Month Summary'))
+        GlobalButton(
+          onTap: () {},
+          title: 'Last Month Summary',
+        )
       ],
     );
   }

@@ -17,6 +17,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   final AddCategory addCategory;
   final UpdateCategory updateCategory;
   final DeleteCategory deleteCategory;
+
   CategoryBloc(
       {required this.getCategory,
       required this.addCategory,

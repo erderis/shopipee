@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/core/homepage/cubit/navbar_cubit.dart';
+import 'package:portfolio/features/category/presentation/pages/add_category_view.dart';
 import 'package:portfolio/features/language/views/language_view.dart';
 import 'package:portfolio/features/notification/presentation/pages/notif_view.dart';
 import 'package:portfolio/features/overview/presentation/pages/overview_view.dart';
@@ -28,6 +29,8 @@ class HomePage extends StatelessWidget {
           return NotifView();
         case 4:
           return LanguageView();
+        case 5:
+          return AddCategoryView();
         default:
           return Overview();
       }

@@ -47,24 +47,25 @@ class SideMenu extends StatelessWidget {
                     onTap: () => changeMenu(0),
                     isSelected: currentPage == 0,
                   ),
+
+                  DrawerMenu(
+                    assetName: Assets.grid,
+                    title: 'Kategori',
+                    onTap: () => changeMenu(2),
+                    isSelected: currentPage == 2 || currentPage == 5,
+                  ),
                   DrawerMenu(
                     assetName: Assets.package,
                     title: 'Produk',
                     onTap: () => changeMenu(1),
                     isSelected: currentPage == 1,
                   ),
-                  DrawerMenu(
-                    assetName: Assets.grid,
-                    title: 'Kategori',
-                    onTap: () => changeMenu(2),
-                    isSelected: currentPage == 2,
-                  ),
-                  DrawerMenu(
-                    assetName: Assets.bell,
-                    title: 'Notifikasi',
-                    onTap: () => changeMenu(3),
-                    isSelected: currentPage == 3,
-                  ),
+                  // DrawerMenu(
+                  //   assetName: Assets.bell,
+                  //   title: 'Notifikasi',
+                  //   onTap: () => changeMenu(3),
+                  //   isSelected: currentPage == 3,
+                  // ),
                   AppDivider(),
                   DrawerMenu(
                     assetName: Assets.globe,

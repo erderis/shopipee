@@ -7,6 +7,8 @@ import 'package:portfolio/core/homepage/cubit/navbar_cubit.dart';
 import 'package:portfolio/core/homepage/cubit/switcher_cubit.dart';
 import 'package:portfolio/core/homepage/views/homepage.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:portfolio/features/category/presentation/cubit/category_image_picker_cubit.dart';
+import 'package:portfolio/features/category/presentation/cubit/image_validator_cubit.dart';
 import 'package:portfolio/utils/helpers/injection_container.dart' as di;
 import 'features/category/presentation/bloc/category_bloc.dart';
 import 'features/overview/presentation/bloc/traffic_bloc.dart';
@@ -54,7 +56,13 @@ class MyApp extends StatelessWidget {
             BlocProvider(
                 create: (_) => sl<TrafficBloc>()..add(GetTrafficEvent())),
             BlocProvider(
-                create: (_) => sl<CategoryBloc>()..add(GetCategoryEvent()))
+                create: (_) => sl<CategoryBloc>()..add(GetCategoryEvent())),
+            BlocProvider(
+              create: (_) => CategoryImagePickerCubit(),
+            ),
+            BlocProvider(
+              create: (_) => ImageValidatorCubit(),
+            ),
           ],
           child: const HomePage(),
         ));

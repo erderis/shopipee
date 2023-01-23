@@ -10,6 +10,7 @@ import '../../../../utils/helpers/responsive.dart';
 import '../../../overview/presentation/widget/order_status.dart';
 import '../bloc/category_bloc.dart';
 import '../widgets/global_little_button.dart';
+import '../widgets/table_button_handler.dart';
 
 class CategoryView extends StatelessWidget {
   const CategoryView({super.key});
@@ -17,6 +18,8 @@ class CategoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController search = TextEditingController();
+    final _formKey = GlobalKey<FormState>();
+
     return Container(
         color: Colors.white,
         margin: EdgeInsets.all(defaultPadding),
@@ -24,28 +27,26 @@ class CategoryView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Daftar Kategori',
-                  style: TextStyle(fontWeight: FontWeight.w500),
-                ),
-                // Text(
-                //   '',
-                //   style: TextStyle(color: Palette.greyColor),
-                // ),
-              ],
+            Text(
+              'Daftar Kategori',
+              style: TextStyle(fontWeight: FontWeight.w500),
             ),
             SizedBox(
-              height: 36,
+              height: 30,
             ),
-            OrderButtonHandler(search: search),
+            TableButtonHandler(
+              search: search,
+              formKey: _formKey,
+            ),
             if (!Responsive.isDesktop(context))
               SizedBox(
                 height: 30,
               ),
-            if (!Responsive.isDesktop(context)) SearchAndPrint(search: search),
+            if (!Responsive.isDesktop(context))
+              SearchTable(
+                search: search,
+                formKey: _formKey,
+              ),
             SizedBox(
               height: 30,
             ),
@@ -53,7 +54,7 @@ class CategoryView extends StatelessWidget {
               builder: (context, state) {
                 if (state is Loading)
                   return AspectRatio(
-                      aspectRatio: 1.5, child: Lottie.asset(Assets.loading));
+                      aspectRatio: 5, child: Lottie.asset(Assets.loading));
                 else if (state is Loaded)
                   return CategoryList(listCategory: state.listCategory);
                 else if (state is Error)

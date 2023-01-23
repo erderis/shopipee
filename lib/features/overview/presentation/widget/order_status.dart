@@ -1,12 +1,8 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:portfolio/constants/colors/palette.dart';
-import 'package:portfolio/constants/fonts/fonts.dart';
-import 'package:portfolio/features/category/presentation/widgets/global_little_button.dart';
-import 'package:portfolio/utils/helpers/responsive.dart';
+import 'package:portfolio/features/category/presentation/widgets/table_button_handler.dart';
 
-import '../../../../constants/assets/assets.dart';
 import '../../../../widgets/global_table.dart';
 
 class OrderStatus extends StatelessWidget {
@@ -17,6 +13,8 @@ class OrderStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController search = TextEditingController();
+    final _formKey = GlobalKey<FormState>();
+
     return Container(
         color: Colors.white,
         margin: EdgeInsets.only(right: defaultPadding),
@@ -40,12 +38,10 @@ class OrderStatus extends StatelessWidget {
             SizedBox(
               height: 36,
             ),
-            OrderButtonHandler(search: search),
-            if (!Responsive.isDesktop(context))
-              SizedBox(
-                height: 30,
-              ),
-            if (!Responsive.isDesktop(context)) SearchAndPrint(search: search),
+            SearchTable(
+              search: search,
+              formKey: _formKey,
+            ),
             SizedBox(
               height: 30,
             ),
@@ -115,147 +111,5 @@ class OrderList extends StatelessWidget {
                             ),
                           ))
                         ])))));
-  }
-}
-
-class OrderButtonHandler extends StatelessWidget {
-  const OrderButtonHandler({
-    Key? key,
-    required this.search,
-  }) : super(key: key);
-
-  final TextEditingController search;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        ListButtonOrder(),
-        if (Responsive.isDesktop(context)) SearchAndPrint(search: search)
-      ],
-    );
-  }
-}
-
-class ListButtonOrder extends StatelessWidget {
-  const ListButtonOrder({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        GlobalLittleButton(
-            child: Row(
-              children: [
-                SvgPicture.asset(Assets.plusCircle),
-                SizedBox(
-                  width: 10,
-                ),
-                Text('Add')
-              ],
-            ),
-            onTap: () {}),
-        SizedBox(
-          width: 10,
-        ),
-        ItemButtonOrder(
-          icon: Assets.alertCircle,
-          onTap: () {},
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        ItemButtonOrder(
-          icon: Assets.trash,
-          onTap: () {},
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        if (!Responsive.isMobile(context))
-          ItemButtonOrder(
-            icon: Assets.printer,
-            onTap: () {},
-          ),
-      ],
-    );
-  }
-}
-
-class SearchAndPrint extends StatelessWidget {
-  const SearchAndPrint({
-    Key? key,
-    required this.search,
-  }) : super(key: key);
-
-  final TextEditingController search;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 150,
-          height: 40,
-          child: TextField(
-            cursorColor: Palette.primaryColor,
-            controller: search,
-            style: TextStyle(
-                fontFamily: AppFontStyle.poppins,
-                fontSize: 12,
-                fontWeight: FontWeight.normal),
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.symmetric(horizontal: 12),
-              // fillColor: Color(0xffF4F6F8),
-              // focusColor: Color(0xffF4F6F8),
-              hintText: 'Search',
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Palette.athensGray)),
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Palette.athensGray)),
-            ),
-          ),
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        ItemButtonOrder(
-          icon: Assets.printer,
-          onTap: () {},
-        ),
-      ],
-    );
-  }
-}
-
-class ItemButtonOrder extends StatelessWidget {
-  const ItemButtonOrder({
-    Key? key,
-    required this.icon,
-    required this.onTap,
-  }) : super(key: key);
-
-  final String icon;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(5),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onTap,
-          child: Ink(
-            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 11.5),
-            color: Palette.athensGray,
-            child: SvgPicture.asset(icon),
-          ),
-        ),
-      ),
-    );
   }
 }
