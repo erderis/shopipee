@@ -6,6 +6,8 @@ abstract class TrafficRemote {
   Future<TrafficModel> getTraffic();
 }
 
+const TRAFFIC_COLLECTION_NAME = 'traffic';
+
 class TrafficRemoteImpl implements TrafficRemote {
   final FirebaseFirestore db;
 
@@ -14,17 +16,15 @@ class TrafficRemoteImpl implements TrafficRemote {
   Future<TrafficModel> getTraffic() async {
     try {
       late Map<String, dynamic> data;
-      await db.collection("traffic").get().then((value) {
+      await db.collection(TRAFFIC_COLLECTION_NAME).get().then((value) {
         if (value.docs.isEmpty) {
           throw ServerException();
         } else {
           data = value.docs[0].data();
         }
-      }).onError((error, stackTrace) {
-        throw ServerException();
       });
       return TrafficModel.fromJson(data);
-    } catch (e) {
+    } catch (_) {
       throw ServerException();
     }
   }

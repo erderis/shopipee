@@ -22,18 +22,19 @@ void main() {
         image: 'image.jpg',
         name: 'Sweater',
         createdAt: DateTime(2023, 1, 1),
-        updatedAt: DateTime(2023, 1, 1));
+        updatedAt: DateTime(2023, 1, 1),
+        id: 'ncu7v3k7keq3tmz99vEF');
   });
 
   test('Should delete data from the repository', () async {
     //arrange
-    when(mockCategoryRepository.deleteCategory(id: '1'))
+    when(mockCategoryRepository.deleteCategory(id: 'ncu7v3k7keq3tmz99vEF'))
         .thenAnswer((_) async => Right(tCategory));
     //act
-    final result = await usecase(CategoryParams('1'));
+    final result = await usecase(DeleteCategoryParams('ncu7v3k7keq3tmz99vEF'));
     //assert
     expect(result, Right(tCategory));
-    verify(mockCategoryRepository.deleteCategory(id: '1'));
+    verify(mockCategoryRepository.deleteCategory(id: 'ncu7v3k7keq3tmz99vEF'));
     verifyNoMoreInteractions(mockCategoryRepository);
   });
 }

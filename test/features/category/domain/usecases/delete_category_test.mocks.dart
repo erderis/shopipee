@@ -8,6 +8,8 @@ import 'dart:async' as _i4;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:portfolio/core/error/failures.dart' as _i5;
+import 'package:portfolio/features/category/data/models/category_model.dart'
+    as _i7;
 import 'package:portfolio/features/category/domain/entities/category.dart'
     as _i6;
 import 'package:portfolio/features/category/domain/repositories/category_repository.dart'
@@ -66,38 +68,42 @@ class MockCategoryRepository extends _i1.Mock
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Category>>>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, void>> addCategory() =>
+  _i4.Future<_i2.Either<_i5.Failure, _i6.Category>> addCategory(
+          {required _i7.CategoryModel? dataCategory}) =>
       (super.noSuchMethod(
         Invocation.method(
           #addCategory,
           [],
+          {#dataCategory: dataCategory},
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, void>>.value(
-            _FakeEither_0<_i5.Failure, void>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Category>>.value(
+            _FakeEither_0<_i5.Failure, _i6.Category>(
           this,
           Invocation.method(
             #addCategory,
             [],
+            {#dataCategory: dataCategory},
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.Either<_i5.Failure, void>>.value(
-                _FakeEither_0<_i5.Failure, void>(
+            _i4.Future<_i2.Either<_i5.Failure, _i6.Category>>.value(
+                _FakeEither_0<_i5.Failure, _i6.Category>(
           this,
           Invocation.method(
             #addCategory,
             [],
+            {#dataCategory: dataCategory},
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, void>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Category>>);
   @override
   _i4.Future<_i2.Either<_i5.Failure, _i6.Category>> updateCategory(
-          {required String? id}) =>
+          {required _i7.CategoryModel? dataCategory}) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateCategory,
           [],
-          {#id: id},
+          {#dataCategory: dataCategory},
         ),
         returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Category>>.value(
             _FakeEither_0<_i5.Failure, _i6.Category>(
@@ -105,7 +111,7 @@ class MockCategoryRepository extends _i1.Mock
           Invocation.method(
             #updateCategory,
             [],
-            {#id: id},
+            {#dataCategory: dataCategory},
           ),
         )),
         returnValueForMissingStub:
@@ -115,7 +121,7 @@ class MockCategoryRepository extends _i1.Mock
           Invocation.method(
             #updateCategory,
             [],
-            {#id: id},
+            {#dataCategory: dataCategory},
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Category>>);

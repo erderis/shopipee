@@ -8,7 +8,8 @@ void main() {
       image: 'image.jpg',
       name: 'Sweater',
       createdAt: Timestamp(1674295838, 392000000).toDate(),
-      updatedAt: Timestamp(1674295838, 392000000).toDate());
+      updatedAt: Timestamp(1674295838, 392000000).toDate(),
+      id: 'ncu7v3k7keq3tmz99vEF');
 
   test('Should a subclass of the category entity', () {
     //assert
@@ -23,6 +24,7 @@ void main() {
         "name": "Sweater",
         "createdAt": Timestamp(1674295838, 392000000),
         "updatedAt": Timestamp(1674295838, 392000000),
+        "id": "ncu7v3k7keq3tmz99vEF"
       };
       final result = CategoryModel.fromJson(jsonMap);
       //assert
@@ -41,6 +43,7 @@ void main() {
         "name": "Sweater",
         "createdAt": Timestamp(1674295838, 392000000).toDate(),
         "updatedAt": Timestamp(1674295838, 392000000).toDate(),
+        "id": "ncu7v3k7keq3tmz99vEF"
       };
       expect(result, equals(expectedMap));
     });

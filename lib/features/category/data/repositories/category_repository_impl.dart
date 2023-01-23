@@ -1,5 +1,6 @@
 import 'package:portfolio/core/error/exception.dart';
 import 'package:portfolio/core/network/network_info.dart';
+import 'package:portfolio/features/category/data/models/category_model.dart';
 import 'package:portfolio/features/category/domain/entities/category.dart';
 import 'package:portfolio/core/error/failures.dart';
 import 'package:dartz/dartz.dart';
@@ -20,9 +21,9 @@ class CategoryRepositoryImpl implements CategoryRepository {
   Future<Either<Failure, List<Category>>> getCategory() async {
     if (await networkInfo.isConnected) {
       try {
-        final remoteCategory = await remote.getCategory();
-        local.cacheCategory(remoteCategory);
-        return Right(remoteCategory);
+        final remoteListCategory = await remote.getCategory();
+        local.cacheListCategory(remoteListCategory);
+        return Right(remoteListCategory);
       } on ServerException {
         return Left(ServerFailure());
       }
@@ -37,18 +38,47 @@ class CategoryRepositoryImpl implements CategoryRepository {
   }
 
   @override
-  Future<Either<Failure, void>> addCategory() async {
-    networkInfo.isConnected;
-    return Right(await remote.addCategory());
+  Future<Either<Failure, Category>> addCategory(
+      {required CategoryModel dataCategory}) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final categoryRemote = await remote.addCategory(dataCategory);
+        return Right(categoryRemote);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(ServerFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, Category>> updateCategory({required String id}) {
-    throw UnimplementedError();
+  Future<Either<Failure, Category>> updateCategory(
+      {required CategoryModel dataCategory}) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final remoteCategory = await remote.updateCategory(dataCategory);
+
+        return Right(remoteCategory);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return left(ServerFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, Category>> deleteCategory({required String id}) {
-    throw UnimplementedError();
+  Future<Either<Failure, void>> deleteCategory({required String id}) async {
+    if (await networkInfo.isConnected) {
+      try {
+        await remote.deleteCategory(id);
+        return Right(id);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(ServerFailure());
+    }
   }
 }

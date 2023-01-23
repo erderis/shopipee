@@ -20,7 +20,8 @@ void main() {
   late MockCategoryRemote mockCategoryRemote;
   late MockCategoryLocal mockCategoryLocal;
   late MockNetworkInfo mockNetworkInfo;
-  late List<CategoryModel> tCategoryModel;
+  late List<CategoryModel> tListCategoryModel;
+  late CategoryModel tCategoryModel;
 
   setUp(() {
     mockCategoryRemote = MockCategoryRemote();
@@ -31,14 +32,15 @@ void main() {
         local: mockCategoryLocal,
         networkInfo: mockNetworkInfo);
 
-    tCategoryModel = [
-      CategoryModel(
-          image: 'image.jpg',
-          name: 'Sweater',
-          createdAt: Timestamp(1674295838, 392000000).toDate(),
-          updatedAt: Timestamp(1674295838, 392000000).toDate())
-    ];
+    tCategoryModel = CategoryModel(
+        image: 'image.jpg',
+        name: 'Sweater',
+        createdAt: Timestamp(1674295838, 392000000).toDate(),
+        updatedAt: Timestamp(1674295838, 392000000).toDate(),
+        id: 'ncu7v3k7keq3tmz99vEF');
+    tListCategoryModel = [tCategoryModel];
   });
+
   group('Get Category', () {
     test('Should check internet connection', () async {
       //arrange
@@ -49,29 +51,29 @@ void main() {
       verify(mockNetworkInfo.isConnected);
     });
 
-    group('if device online', () {
+    group('device is online', () {
       setUp(() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
       test('Should get data from remote', () async {
         //arrange
         when(mockCategoryRemote.getCategory())
-            .thenAnswer((_) async => tCategoryModel);
+            .thenAnswer((_) async => tListCategoryModel);
         //act
         final result = await repository.getCategory();
         //assert
-        expect(result, equals(Right(tCategoryModel)));
+        expect(result, equals(Right(tListCategoryModel)));
         verify(mockCategoryRemote.getCategory());
       });
       test('Should cache remote data', () async {
         //arrange
         when(mockCategoryRemote.getCategory())
-            .thenAnswer((_) async => tCategoryModel);
+            .thenAnswer((_) async => tListCategoryModel);
         //act
         await repository.getCategory();
         //assert
         verify(mockCategoryRemote.getCategory());
-        verify(mockCategoryLocal.cacheCategory(tCategoryModel));
+        verify(mockCategoryLocal.cacheListCategory(tListCategoryModel));
       });
 
       test('Should return Server Failure when get data unsuccessful', () async {
@@ -93,13 +95,13 @@ void main() {
       test('Should get data from local', () async {
         //arrange
         when(mockCategoryLocal.getLastCategory())
-            .thenAnswer((realInvocation) async => tCategoryModel);
+            .thenAnswer((_) async => tListCategoryModel);
         //act
         final result = await repository.getCategory();
         //assert
         verify(mockCategoryLocal.getLastCategory());
         verifyZeroInteractions(mockCategoryRemote);
-        expect(result, Right(tCategoryModel));
+        expect(result, Right(tListCategoryModel));
       });
 
       test(
@@ -122,24 +124,171 @@ void main() {
       //arrange
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       //act
-      await repository.addCategory();
+      await repository.addCategory(dataCategory: tCategoryModel);
       //assert
       verify(mockNetworkInfo.isConnected);
     });
-    test('Should add category to remote', () async {
-      //arrange
-      //act
-      await mockCategoryRemote.addCategory();
-      //assert
-      verify(mockCategoryRemote.addCategory());
+
+    group('device is online', () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+      });
+
+      test('Should add category to remote', () async {
+        //arrange
+        when(mockCategoryRemote.addCategory(tCategoryModel))
+            .thenAnswer((_) async => tCategoryModel);
+        //act
+        final result =
+            await repository.addCategory(dataCategory: tCategoryModel);
+        //assert
+        verify(mockCategoryRemote.addCategory(tCategoryModel));
+        expect(result, equals(Right(tCategoryModel)));
+      });
+
+      test('Should return Server Failure when add data to remote unsuccessfull',
+          () async {
+        when(mockCategoryRemote.addCategory(tCategoryModel))
+            .thenThrow(ServerException());
+        //act
+        final result =
+            await repository.addCategory(dataCategory: tCategoryModel);
+        //assert
+        verify(mockCategoryRemote.addCategory(tCategoryModel));
+        expect(result, equals(Left(ServerFailure())));
+      });
     });
 
-    test('Should return ', () async {
+    group('device is offline', () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+      });
+      test('Should return Server Failure when device offline', () async {
+        //act
+        final result =
+            await repository.addCategory(dataCategory: tCategoryModel);
+        //assert
+        verifyZeroInteractions(mockCategoryRemote);
+        expect(result, equals(Left(ServerFailure())));
+      });
+    });
+  });
+
+  group('Update Category', () {
+    test('Should check internet connection', () async {
       //arrange
-
+      when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       //act
-
+      await repository.updateCategory(dataCategory: tCategoryModel);
       //assert
+      verify(mockNetworkInfo.isConnected);
+    });
+
+    group('Device is online', () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+      });
+
+      test('Should update category data to remote', () async {
+        //arrange
+        when(mockCategoryRemote.updateCategory(any))
+            .thenAnswer((_) async => tCategoryModel);
+        //act
+        final result =
+            await repository.updateCategory(dataCategory: tCategoryModel);
+        //assert
+        verify(mockCategoryRemote.updateCategory(tCategoryModel));
+        expect(result, equals(Right(tCategoryModel)));
+      });
+
+      test('Should return Server failure when update data unsuccessful',
+          () async {
+        //arrange
+        when(mockCategoryRemote.updateCategory(any))
+            .thenThrow(ServerException());
+        //act
+        final result =
+            await repository.updateCategory(dataCategory: tCategoryModel);
+        //assert
+        verify(mockCategoryRemote.updateCategory(tCategoryModel));
+        expect(result, equals(Left(ServerFailure())));
+      });
+    });
+
+    group('Device is offline', () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+      });
+      test('Should return Server Failure when update data during offline',
+          () async {
+        when(mockCategoryRemote.updateCategory(any))
+            .thenThrow(ServerException());
+        //act
+        final result =
+            await repository.updateCategory(dataCategory: tCategoryModel);
+        //assert
+        verifyZeroInteractions(mockCategoryRemote);
+        expect(result, equals(Left(ServerFailure())));
+      });
+    });
+  });
+
+  group('Delete Category', () {
+    test('Should check internet connection', () async {
+      //arrange
+      when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+      //act
+      await repository.deleteCategory(id: 'ncu7v3k7keq3tmz99vEF1');
+      //assert
+      verify(mockNetworkInfo.isConnected);
+    });
+
+    group('Device is online', () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+      });
+
+      test('Should delete category remote', () async {
+        //arrange
+        when(mockCategoryRemote.deleteCategory(any))
+            .thenAnswer((_) async => tCategoryModel);
+        //act
+        final result =
+            await repository.deleteCategory(id: 'ncu7v3k7keq3tmz99vEF');
+        //assert
+        verify(mockCategoryRemote.deleteCategory('ncu7v3k7keq3tmz99vEF'));
+        expect(result, equals(Right(tCategoryModel)));
+      });
+
+      test('Should return Server Failure when delete category unsuccessful',
+          () async {
+        //arrange
+        when(mockCategoryRemote.deleteCategory(any))
+            .thenThrow(ServerException());
+        //act
+        final result =
+            await repository.deleteCategory(id: 'ncu7v3k7keq3tmz99vEF');
+        //assert
+        verify(mockCategoryRemote.deleteCategory('ncu7v3k7keq3tmz99vEF'));
+        expect(result, equals(Left(ServerFailure())));
+      });
+    });
+    group('Device is offline', () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+      });
+
+      test('Should return Server Failure when device is offline', () async {
+        //arrange
+        when(mockCategoryRemote.deleteCategory(any))
+            .thenThrow(ServerException());
+        //act
+        final result =
+            await repository.deleteCategory(id: 'ncu7v3k7keq3tmz99vEF');
+        //assert
+        verifyZeroInteractions(mockCategoryRemote);
+        expect(result, equals(Left(ServerFailure())));
+      });
     });
   });
 }

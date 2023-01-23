@@ -53,11 +53,12 @@ class MockCategoryLocal extends _i1.Mock implements _i3.CategoryLocal {
             _i4.Future<List<_i2.CategoryModel>>.value(<_i2.CategoryModel>[]),
       ) as _i4.Future<List<_i2.CategoryModel>>);
   @override
-  _i4.Future<void> cacheCategory(List<_i2.CategoryModel>? categoryToCache) =>
+  _i4.Future<void> cacheListCategory(
+          List<_i2.CategoryModel>? listCategoryToCache) =>
       (super.noSuchMethod(
         Invocation.method(
-          #cacheCategory,
-          [categoryToCache],
+          #cacheListCategory,
+          [listCategoryToCache],
         ),
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
@@ -95,16 +96,17 @@ class MockCategoryRemote extends _i1.Mock implements _i6.CategoryRemote {
             _i4.Future<List<_i2.CategoryModel>>.value(<_i2.CategoryModel>[]),
       ) as _i4.Future<List<_i2.CategoryModel>>);
   @override
-  _i4.Future<_i2.CategoryModel> addCategory() => (super.noSuchMethod(
+  _i4.Future<_i2.CategoryModel> addCategory(_i2.CategoryModel? dataCategory) =>
+      (super.noSuchMethod(
         Invocation.method(
           #addCategory,
-          [],
+          [dataCategory],
         ),
         returnValue: _i4.Future<_i2.CategoryModel>.value(_FakeCategoryModel_0(
           this,
           Invocation.method(
             #addCategory,
-            [],
+            [dataCategory],
           ),
         )),
         returnValueForMissingStub:
@@ -112,22 +114,23 @@ class MockCategoryRemote extends _i1.Mock implements _i6.CategoryRemote {
           this,
           Invocation.method(
             #addCategory,
-            [],
+            [dataCategory],
           ),
         )),
       ) as _i4.Future<_i2.CategoryModel>);
   @override
-  _i4.Future<_i2.CategoryModel> updateCategory(String? id) =>
+  _i4.Future<_i2.CategoryModel> updateCategory(
+          _i2.CategoryModel? dataCategory) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateCategory,
-          [id],
+          [dataCategory],
         ),
         returnValue: _i4.Future<_i2.CategoryModel>.value(_FakeCategoryModel_0(
           this,
           Invocation.method(
             #updateCategory,
-            [id],
+            [dataCategory],
           ),
         )),
         returnValueForMissingStub:
@@ -135,7 +138,7 @@ class MockCategoryRemote extends _i1.Mock implements _i6.CategoryRemote {
           this,
           Invocation.method(
             #updateCategory,
-            [id],
+            [dataCategory],
           ),
         )),
       ) as _i4.Future<_i2.CategoryModel>);

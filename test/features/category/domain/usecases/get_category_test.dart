@@ -23,7 +23,8 @@ void main() {
           image: 'image.jpg',
           name: 'Sweater',
           createdAt: DateTime(2023, 1, 1),
-          updatedAt: DateTime(2023, 1, 1))
+          updatedAt: DateTime(2023, 1, 1),
+          id: 'ncu7v3k7keq3tmz99vEF')
     ];
   });
 

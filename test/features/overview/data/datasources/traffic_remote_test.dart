@@ -17,9 +17,8 @@ void main() async {
     final tTraffic = TrafficModel(facebook: 150, instagram: 300, direct: 450);
     test('Should return Traffic Model when the response is sucessful',
         () async {
-      await instance
-          .collection('traffic')
-          .add({'facebook': 150, 'instagram': 300, 'direct': 450});
+      final jsonMap = {'facebook': 150, 'instagram': 300, 'direct': 450};
+      await instance.collection(TRAFFIC_COLLECTION_NAME).add(jsonMap);
       final result = await dataSource.getTraffic();
       expect(result, equals(tTraffic));
     });
@@ -27,22 +26,23 @@ void main() async {
     test('Should throw a server exception when the response data is not proper',
         () async {
       // Arrange
-      await instance.collection('traffic').add({});
+      await instance.collection(TRAFFIC_COLLECTION_NAME).add({});
       // Act
       final call = dataSource.getTraffic;
       // Assert
       expect(() => call(), throwsA(const TypeMatcher<ServerException>()));
     });
 
-    //optional
-    test('Should throw a server exception when the response is error',
-        () async {
-      // Arrange
-      // setUpMockFirebaseFailure();
-      // Act
-      // final call = dataSource.getTraffic;
-      // Assert
-      // expect(() => call(), throwsA(const TypeMatcher<ServerException>()));
-    });
+    //what is firestore exception class?
+    // test('Should throw a server exception when the response is error',
+    //     () async {
+    //   // Arrange
+    // when(instance.collection(CATEGORY_COLLECTION_NAME).add(jsonMap))
+    //     .thenThrow(FirebaseException); is that true???
+    //   // Act
+    //   final call = dataSource.getTraffic;
+    //   // Assert
+    //   expect(() => call(), throwsA(const TypeMatcher<ServerException>()));
+    // });
   });
 }
