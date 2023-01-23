@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
@@ -37,14 +35,14 @@ Future<void> init() async {
   sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton(() => FirebaseFirestore.instance);
 
-  final List<AddressCheckOptions> _defaultAddresses = [
-    AddressCheckOptions(
-      Uri.parse('https://cloudflare-dns.com/dns-query'),
-    ),
-    AddressCheckOptions(
-      Uri.parse('https://mozilla.cloudflare-dns.com/dns-query'),
-    ),
-  ];
+  // final List<AddressCheckOptions> _defaultAddresses = [
+  //   AddressCheckOptions(
+  //     Uri.parse('https://cloudflare-dns.com/dns-query'),
+  //   ),
+  //   AddressCheckOptions(
+  //     Uri.parse('https://mozilla.cloudflare-dns.com/dns-query'),
+  //   ),
+  // ];
   final customInstance = InternetConnectionCheckerPlus.createInstance(
     checkTimeout: const Duration(seconds: 3), // Custom check timeout
     checkInterval: const Duration(seconds: 3), // Custom check interval

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:portfolio/constants/assets/assets.dart';
 import 'package:portfolio/constants/colors/palette.dart';
 import 'package:portfolio/core/homepage/cubit/navbar_cubit.dart';
-import 'package:portfolio/core/homepage/cubit/switcher_cubit.dart';
 import 'package:portfolio/utils/helpers/responsive.dart';
 import 'package:portfolio/widgets/app_divider.dart';
 

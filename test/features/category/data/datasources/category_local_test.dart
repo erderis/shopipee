@@ -8,7 +8,6 @@ import 'package:portfolio/features/category/data/datasources/category_local.dart
 import 'package:portfolio/features/category/data/models/category_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../fixtures/fixture_reader.dart';
 import '../../../overview/data/datasources/traffic_local_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<SharedPreferences>()])

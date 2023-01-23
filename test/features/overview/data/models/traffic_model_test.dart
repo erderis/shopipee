@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:portfolio/features/overview/data/models/traffic_model.dart';
 import 'package:portfolio/features/overview/domain/entities/traffic.dart';

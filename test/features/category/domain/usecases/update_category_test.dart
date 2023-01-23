@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:portfolio/core/usecases/usecase.dart';
 import 'package:portfolio/features/category/data/models/category_model.dart';
 import 'package:portfolio/features/category/domain/entities/category.dart';
 import 'package:portfolio/features/category/domain/repositories/category_repository.dart';
