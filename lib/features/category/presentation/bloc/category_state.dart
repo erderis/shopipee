@@ -13,9 +13,9 @@ class Loading extends CategoryState {}
 
 //for get
 class Loaded extends CategoryState {
-  final List<Category> category;
+  final List<Category> listCategory;
 
-  Loaded({required this.category});
+  Loaded({required this.listCategory});
 }
 
 //for add, update, delete

@@ -73,7 +73,8 @@ void main() {
       setUp: () => when(mockGetCategory(any))
           .thenAnswer((_) async => Right(tListCategory)),
       act: (bloc) => bloc.add(GetCategoryEvent()),
-      expect: () => <CategoryState>[Loading(), Loaded(category: tListCategory)],
+      expect: () =>
+          <CategoryState>[Loading(), Loaded(listCategory: tListCategory)],
     );
     blocTest<CategoryBloc, CategoryState>(
       'Should emit [loading, error] when data remote is not gotten succesfully',

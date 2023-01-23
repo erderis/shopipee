@@ -8,6 +8,7 @@ import 'package:portfolio/core/homepage/cubit/switcher_cubit.dart';
 import 'package:portfolio/core/homepage/views/homepage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:portfolio/utils/helpers/injection_container.dart' as di;
+import 'features/category/presentation/bloc/category_bloc.dart';
 import 'features/overview/presentation/bloc/traffic_bloc.dart';
 import 'firebase_options.dart';
 import 'utils/helpers/injection_container.dart';
@@ -51,7 +52,9 @@ class MyApp extends StatelessWidget {
               create: (_) => MenuDrawerCubit(),
             ),
             BlocProvider(
-                create: (_) => sl<TrafficBloc>()..add(GetTrafficEvent()))
+                create: (_) => sl<TrafficBloc>()..add(GetTrafficEvent())),
+            BlocProvider(
+                create: (_) => sl<CategoryBloc>()..add(GetCategoryEvent()))
           ],
           child: const HomePage(),
         ));

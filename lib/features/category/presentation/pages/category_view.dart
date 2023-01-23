@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
+import 'package:portfolio/features/category/domain/entities/category.dart';
 import 'package:portfolio/widgets/global_table.dart';
 
+import '../../../../constants/assets/assets.dart';
 import '../../../../constants/colors/palette.dart';
 import '../../../../utils/helpers/responsive.dart';
 import '../../../overview/presentation/widget/order_status.dart';
+import '../bloc/category_bloc.dart';
 import '../widgets/global_little_button.dart';
 
 class CategoryView extends StatelessWidget {
@@ -44,7 +49,29 @@ class CategoryView extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
-            CategoryList(),
+            BlocBuilder<CategoryBloc, CategoryState>(
+              builder: (context, state) {
+                if (state is Loading)
+                  return AspectRatio(
+                      aspectRatio: 1.5, child: Lottie.asset(Assets.loading));
+                else if (state is Loaded)
+                  return CategoryList(listCategory: state.listCategory);
+                else if (state is Error)
+                  return Expanded(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(state.message),
+                    ),
+                  );
+                else
+                  return Expanded(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text('Data is Empty'),
+                    ),
+                  );
+              },
+            ),
             SizedBox(
               height: 30,
             ),
@@ -56,7 +83,10 @@ class CategoryView extends StatelessWidget {
 class CategoryList extends StatelessWidget {
   const CategoryList({
     Key? key,
+    required this.listCategory,
   }) : super(key: key);
+
+  final List<Category> listCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +107,7 @@ class CategoryList extends StatelessWidget {
                 ),
               ],
               rows: List<DataRow>.generate(
-                  5,
+                  listCategory.length,
                   (index) => DataRow(
                           // selected: true,
                           onSelectChanged: (value) {},
@@ -88,12 +118,14 @@ class CategoryList extends StatelessWidget {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.network(
-                                  'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80',
+                                  listCategory[index].image,
                                   fit: BoxFit.cover,
                                 ),
                               ),
                             )),
-                            DataCell(Text('Sweater')),
+                            DataCell(Text(
+                              listCategory[index].name,
+                            )),
                             DataCell(Row(
                               children: [
                                 GlobalLittleButton(

@@ -29,7 +29,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
         final failureOrListCategory = await getCategory(NoParams());
         failureOrListCategory.fold(
             (failure) => emit(Error(message: mapFailureToMessage(failure))),
-            (category) => emit(Loaded(category: category)));
+            (listCategory) => emit(Loaded(listCategory: listCategory)));
       }
       if (event is AddCategoryEvent) {
         emit(Loading());

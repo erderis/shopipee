@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:portfolio/core/network/network_info.dart';
+import 'package:portfolio/features/category/data/datasources/category_local.dart';
+import 'package:portfolio/features/category/data/datasources/category_remote.dart';
 import 'package:portfolio/features/category/data/repositories/category_repository_impl.dart';
 import 'package:portfolio/features/category/domain/repositories/category_repository.dart';
 import 'package:portfolio/features/category/domain/usecases/get_category.dart';
@@ -62,6 +64,10 @@ Future<void> _initTraffic() async {
   sl.registerLazySingleton<TrafficRepository>(() =>
       TrafficRepositoryImpl(remote: sl(), local: sl(), networkInfo: sl()));
   //data source
+  //data source
+  sl.registerLazySingleton<TrafficRemote>(() => TrafficRemoteImpl(db: sl()));
+  sl.registerLazySingleton<TrafficLocal>(
+      () => TrafficLocalImpl(sharedPreferences: sl()));
 }
 
 Future<void> _initCategory() async {
@@ -81,4 +87,8 @@ Future<void> _initCategory() async {
   sl.registerLazySingleton<CategoryRepository>(() =>
       CategoryRepositoryImpl(remote: sl(), local: sl(), networkInfo: sl()));
   //data source
+  //data source
+  sl.registerLazySingleton<CategoryRemote>(() => CategoryRemoteImpl(db: sl()));
+  sl.registerLazySingleton<CategoryLocal>(
+      () => CategoryLocalImpl(sharedPreferences: sl()));
 }
