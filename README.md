@@ -10,7 +10,12 @@ Visit to [DEMO](https://shopipee.web.app/) to see a live demo. Note that it may 
 
 ### Desktop
 
+#### Overview Page
+
 ![screenshot desktop 1](https://github.com/erderis/shopipee/blob/master/screenshot/desktop-1.png?raw=true)
+
+#### Category Page
+
 ![screenshot desktop 2](https://github.com/erderis/shopipee/blob/master/screenshot/desktop-2.png?raw=true)
 
 ### Tablet
