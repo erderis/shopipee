@@ -44,4 +44,4 @@ Some of the features that will be developed next are:
 
 ## Contribution
 
-UI design inspired by [Khandaker Rasel](https://dribbble.com/shots/6568944-Analytics-Admin-UI-Design)
+Thanks to [Khandaker Rasel](https://dribbble.com/shots/6568944-Analytics-Admin-UI-Design) for inspiring me regarding the UI design.
