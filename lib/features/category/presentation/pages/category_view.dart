@@ -7,7 +7,6 @@ import 'package:portfolio/widgets/global_table.dart';
 import '../../../../constants/assets/assets.dart';
 import '../../../../constants/colors/palette.dart';
 import '../../../../core/homepage/cubit/navbar_cubit.dart';
-import '../../../../utils/helpers/responsive.dart';
 import '../bloc/category_bloc.dart';
 import '../cubit/update_params_cubit.dart';
 import '../widgets/global_little_button.dart';
@@ -56,10 +55,18 @@ class CategoryView extends StatelessWidget {
                 if (state is Loading)
                   return AspectRatio(
                       aspectRatio: 5, child: Lottie.asset(Assets.loading));
-                else if (state is Loaded)
+                else if (state is Loaded) if (state.listCategory.isNotEmpty) {
                   return CategoryList(
                     listCategory: state.listCategory,
                   );
+                } else {
+                  return Expanded(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text('Data is Empty'),
+                    ),
+                  );
+                }
                 else if (state is Error)
                   return Expanded(
                     child: Align(
