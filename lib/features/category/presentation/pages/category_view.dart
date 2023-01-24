@@ -6,9 +6,10 @@ import 'package:portfolio/widgets/global_table.dart';
 
 import '../../../../constants/assets/assets.dart';
 import '../../../../constants/colors/palette.dart';
+import '../../../../core/homepage/cubit/navbar_cubit.dart';
 import '../../../../utils/helpers/responsive.dart';
-import '../../../overview/presentation/widget/order_status.dart';
 import '../bloc/category_bloc.dart';
+import '../cubit/update_params_cubit.dart';
 import '../widgets/global_little_button.dart';
 import '../widgets/table_button_handler.dart';
 
@@ -38,15 +39,15 @@ class CategoryView extends StatelessWidget {
               search: search,
               formKey: _formKey,
             ),
-            if (!Responsive.isDesktop(context))
-              SizedBox(
-                height: 30,
-              ),
-            if (!Responsive.isDesktop(context))
-              SearchTable(
-                search: search,
-                formKey: _formKey,
-              ),
+            // if (!Responsive.isDesktop(context))
+            //   SizedBox(
+            //     height: 30,
+            //   ),
+            // if (!Responsive.isDesktop(context))
+            //   SearchTable(
+            //     search: search,
+            //     formKey: _formKey,
+            //   ),
             SizedBox(
               height: 30,
             ),
@@ -56,7 +57,9 @@ class CategoryView extends StatelessWidget {
                   return AspectRatio(
                       aspectRatio: 5, child: Lottie.asset(Assets.loading));
                 else if (state is Loaded)
-                  return CategoryList(listCategory: state.listCategory);
+                  return CategoryList(
+                    listCategory: state.listCategory,
+                  );
                 else if (state is Error)
                   return Expanded(
                     child: Align(
@@ -111,7 +114,7 @@ class CategoryList extends StatelessWidget {
                   listCategory.length,
                   (index) => DataRow(
                           // selected: true,
-                          onSelectChanged: (value) {},
+                          // onSelectChanged: (value) {},
                           cells: [
                             DataCell(Padding(
                               padding: const EdgeInsets.symmetric(
@@ -130,7 +133,13 @@ class CategoryList extends StatelessWidget {
                             DataCell(Row(
                               children: [
                                 GlobalLittleButton(
-                                  onTap: () {},
+                                  onTap: () {
+                                    RepositoryProvider.of<UpdateParamsCubit>(
+                                            context)
+                                        .setData(listCategory[index]);
+                                    RepositoryProvider.of<NavbarCubit>(context)
+                                        .changePage(5);
+                                  },
                                   child: Icon(
                                     Icons.edit,
                                     color: Colors.white,

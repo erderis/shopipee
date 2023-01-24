@@ -8,7 +8,8 @@ void showToast(String message) {
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.CENTER,
       timeInSecForIosWeb: 1,
-      backgroundColor: Palette.divider,
+      backgroundColor: Palette.secondaryColor,
       textColor: Colors.white,
+      webBgColor: "#2F3A4D",
       fontSize: 16.0);
 }

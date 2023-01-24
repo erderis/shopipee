@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/core/usecases/usecase.dart';
 import 'package:portfolio/features/category/data/models/category_model.dart';
 import 'package:portfolio/features/category/domain/entities/category.dart';
@@ -30,7 +31,16 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
         final failureOrListCategory = await getCategory(NoParams());
         failureOrListCategory.fold(
             (failure) => emit(Error(message: mapFailureToMessage(failure))),
-            (listCategory) => emit(Loaded(listCategory: listCategory)));
+            (listCategory) {
+          List<bool> listSelected = [];
+          listCategory.forEach(
+            (_) {
+              listSelected.add(false);
+            },
+          );
+
+          emit(Loaded(listCategory: listCategory));
+        });
       }
       if (event is AddCategoryEvent) {
         emit(Loading());

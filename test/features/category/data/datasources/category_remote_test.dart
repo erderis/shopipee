@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:portfolio/core/error/exception.dart';
 import 'package:portfolio/features/category/data/datasources/category_remote.dart';
 import 'package:portfolio/features/category/data/models/category_model.dart';

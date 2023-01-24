@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:portfolio/core/homepage/cubit/navbar_cubit.dart';
-
+import 'package:portfolio/features/category/presentation/cubit/update_params_cubit.dart';
 import '../../../../constants/assets/assets.dart';
 import '../../../../constants/colors/palette.dart';
-import '../../../../utils/helpers/responsive.dart';
 import '../../../../widgets/global_text_field.dart';
 import 'global_little_button.dart';
 
@@ -25,22 +24,22 @@ class TableButtonHandler extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         ListButtonTable(),
-        if (Responsive.isDesktop(context))
-          Row(
-            children: [
-              SearchTable(
-                search: search,
-                formKey: formKey,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              ItemButtonOrder(
-                icon: Assets.printer,
-                onTap: () {},
-              ),
-            ],
-          )
+        // if (Responsive.isDesktop(context))
+        Row(
+          children: [
+            SearchTable(
+              search: search,
+              formKey: formKey,
+            ),
+            // SizedBox(
+            //   width: 10,
+            // ),
+            // ItemButtonOrder(
+            //   icon: Assets.printer,
+            //   onTap: () {},
+            // ),
+          ],
+        )
       ],
     );
   }
@@ -66,11 +65,12 @@ class ListButtonTable extends StatelessWidget {
               ],
             ),
             onTap: () {
+              RepositoryProvider.of<UpdateParamsCubit>(context).setData(null);
               RepositoryProvider.of<NavbarCubit>(context).changePage(5);
             }),
-        SizedBox(
-          width: 10,
-        ),
+        // SizedBox(
+        //   width: 10,
+        // ),
         // ItemButtonOrder(
         //   icon: Assets.alertCircle,
         //   onTap: () {},
@@ -78,18 +78,18 @@ class ListButtonTable extends StatelessWidget {
         // SizedBox(
         //   width: 10,
         // ),
-        ItemButtonOrder(
-          icon: Assets.trash,
-          onTap: () {},
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        // if (!Responsive.isMobile(context))
-        ItemButtonOrder(
-          icon: Assets.printer,
-          onTap: () {},
-        ),
+        // ItemButtonOrder(
+        //   icon: Assets.trash,
+        //   onTap: () {},
+        // ),
+        // SizedBox(
+        //   width: 10,
+        // ),
+        // // if (!Responsive.isMobile(context))
+        // ItemButtonOrder(
+        //   icon: Assets.printer,
+        //   onTap: () {},
+        // ),
       ],
     );
   }

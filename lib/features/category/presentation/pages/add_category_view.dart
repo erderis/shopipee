@@ -1,12 +1,11 @@
 import 'dart:io';
-import 'dart:math';
 
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
 import 'package:portfolio/features/category/data/models/category_model.dart';
+import 'package:portfolio/features/category/domain/entities/category.dart';
 import 'package:portfolio/features/category/presentation/bloc/category_bloc.dart';
 import 'package:portfolio/features/category/presentation/cubit/image_validator_cubit.dart';
 import 'package:portfolio/utils/helpers/random_string.dart';
@@ -19,15 +18,63 @@ import '../../../../constants/colors/palette.dart';
 import '../../../../core/homepage/cubit/navbar_cubit.dart';
 import '../../../../utils/helpers/show_toast.dart';
 import '../cubit/category_image_picker_cubit.dart';
+import '../cubit/update_params_cubit.dart';
 
 class AddCategoryView extends StatelessWidget {
   const AddCategoryView({super.key});
 
+  void addCategory(
+      {required BuildContext context,
+      required GlobalKey<FormState> formKey,
+      required String categoryName}) {
+    final imagePath =
+        RepositoryProvider.of<CategoryImagePickerCubit>(context).getPath();
+    RepositoryProvider.of<ImageValidatorCubit>(context)
+        .showErrorImage(imagePath);
+    if (formKey.currentState!.validate() && imagePath.isNotEmpty) {
+      CategoryModel categoryModel = CategoryModel(
+          id: getRandomString(10),
+          image: imagePath,
+          name: categoryName,
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now());
+      context
+          .read<CategoryBloc>()
+          .add(AddCategoryEvent(dataCategory: categoryModel));
+    }
+  }
+
+  void updateCategory(
+      {required BuildContext context,
+      required GlobalKey<FormState> formKey,
+      required String categoryName,
+      required Category dataCategory}) {
+    final imagePath =
+        RepositoryProvider.of<CategoryImagePickerCubit>(context).getPath();
+    // RepositoryProvider.of<ImageValidatorCubit>(context)
+    //     .showErrorImage(imagePath);
+    if (formKey.currentState!.validate()) {
+      CategoryModel categoryModel = CategoryModel(
+          id: dataCategory.id,
+          image: imagePath.isEmpty ? dataCategory.image : imagePath,
+          name: categoryName,
+          createdAt: dataCategory.createdAt,
+          updatedAt: DateTime.now());
+
+      context
+          .read<CategoryBloc>()
+          .add(UpdateCategoryEvent(dataCategory: categoryModel));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
-    final TextEditingController categoryNameController =
-        TextEditingController();
+    final dataCategory =
+        RepositoryProvider.of<UpdateParamsCubit>(context).getData;
+    final TextEditingController categoryNameController = TextEditingController(
+        text: dataCategory != null ? dataCategory.name : "");
+    final imageCategoryDefault = dataCategory?.image;
     return Container(
       width: double.infinity,
       color: Colors.white,
@@ -40,7 +87,7 @@ class AddCategoryView extends StatelessWidget {
               : CrossAxisAlignment.start),
           children: [
             Text(
-              'Tambah Kategori',
+              dataCategory != null ? 'Update Kategori' : 'Tambah Kategori',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
             SizedBox(
@@ -58,26 +105,59 @@ class AddCategoryView extends StatelessWidget {
                         child: SizedBox(
                             width: 100,
                             height: 100,
-                            child: kIsWeb
+                            child: foundation.kIsWeb
                                 ? Image.network(imagePath)
                                 : Image.file(File(imagePath))),
                       )
-                    : InkWell(
-                        onTap: (() =>
-                            RepositoryProvider.of<CategoryImagePickerCubit>(
-                                    context)
-                                .pickImage()),
-                        child: Container(
-                          width: 100,
-                          height: 100,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(color: Palette.divider)),
-                          child: Center(
-                            child: Icon(Icons.add),
-                          ),
-                        ),
-                      );
+                    : imageCategoryDefault != null
+                        ? Stack(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: SizedBox(
+                                    width: 100,
+                                    height: 100,
+                                    child: Image.network(imageCategoryDefault)),
+                              ),
+                              Positioned(
+                                right: 5,
+                                top: 5,
+                                child: InkWell(
+                                  onTap: (() => RepositoryProvider.of<
+                                          CategoryImagePickerCubit>(context)
+                                      .pickImage()),
+                                  child: Container(
+                                    width: 30,
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle),
+                                    child: Icon(
+                                      Icons.edit,
+                                      color: Palette.primaryColor,
+                                      size: 15,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                        : InkWell(
+                            onTap: (() =>
+                                RepositoryProvider.of<CategoryImagePickerCubit>(
+                                        context)
+                                    .pickImage()),
+                            child: Container(
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(color: Palette.divider)),
+                              child: Center(
+                                child: Icon(Icons.add),
+                              ),
+                            ),
+                          );
               },
             ),
             BlocBuilder<ImageValidatorCubit, bool>(
@@ -125,8 +205,8 @@ class AddCategoryView extends StatelessWidget {
               if (state is Sucess) {
                 RepositoryProvider.of<NavbarCubit>(context).changePage(2);
                 context.read<CategoryBloc>().add(GetCategoryEvent());
-              } else {
-                showToast("Add Category is failed");
+              } else if (state is Error) {
+                showToast("Server Error");
               }
             }, builder: (context, state) {
               if (state is Loading)
@@ -134,25 +214,21 @@ class AddCategoryView extends StatelessWidget {
                     width: 50, height: 50, child: Lottie.asset(Assets.loading));
               else
                 return GlobalButton(
-                    title: 'Tambah Kategori',
+                    title: dataCategory != null
+                        ? 'Update Kategori'
+                        : 'Tambah Kategori',
                     onTap: () {
-                      final imagePath =
-                          RepositoryProvider.of<CategoryImagePickerCubit>(
-                                  context)
-                              .getPath();
-                      RepositoryProvider.of<ImageValidatorCubit>(context)
-                          .showErrorImage(imagePath);
-                      if (_formKey.currentState!.validate() &&
-                          imagePath.isNotEmpty) {
-                        CategoryModel categoryModel = CategoryModel(
-                            id: getRandomString(10),
-                            image: imagePath,
-                            name: categoryNameController.text,
-                            createdAt: DateTime.now(),
-                            updatedAt: DateTime.now());
-                        context
-                            .read<CategoryBloc>()
-                            .add(AddCategoryEvent(dataCategory: categoryModel));
+                      if (dataCategory != null) {
+                        updateCategory(
+                            context: context,
+                            formKey: _formKey,
+                            categoryName: categoryNameController.text,
+                            dataCategory: dataCategory);
+                      } else {
+                        addCategory(
+                            context: context,
+                            formKey: _formKey,
+                            categoryName: categoryNameController.text);
                       }
                     });
             })
