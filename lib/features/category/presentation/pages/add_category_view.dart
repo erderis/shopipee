@@ -87,13 +87,13 @@ class AddCategoryView extends StatelessWidget {
               : CrossAxisAlignment.start),
           children: [
             Text(
-              dataCategory != null ? 'Update Kategori' : 'Tambah Kategori',
+              dataCategory != null ? 'Update Category' : 'Add Category',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
             SizedBox(
               height: 30,
             ),
-            Text('Foto Kategori'),
+            Text('Category Image'),
             SizedBox(
               height: 10,
             ),
@@ -188,7 +188,7 @@ class AddCategoryView extends StatelessWidget {
               height: 30,
             ),
             Align(
-                alignment: Alignment.centerLeft, child: Text('Nama Kategori')),
+                alignment: Alignment.centerLeft, child: Text('Category Name')),
             SizedBox(
               height: 10,
             ),
@@ -215,8 +215,8 @@ class AddCategoryView extends StatelessWidget {
               else
                 return GlobalButton(
                     title: dataCategory != null
-                        ? 'Update Kategori'
-                        : 'Tambah Kategori',
+                        ? 'Update Category'
+                        : 'Add Category',
                     onTap: () {
                       if (dataCategory != null) {
                         updateCategory(

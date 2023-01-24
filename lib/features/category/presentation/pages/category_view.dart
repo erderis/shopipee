@@ -29,7 +29,7 @@ class CategoryView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Daftar Kategori',
+              'List of Product Category',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
             SizedBox(
@@ -100,13 +100,13 @@ class CategoryList extends StatelessWidget {
           child: GlobalTable(
               columns: [
                 DataColumn(
-                  label: Text('Foto'),
+                  label: Text('Image'),
                 ),
                 DataColumn(
-                  label: Text('Nama Kategori'),
+                  label: Text('Category Name'),
                 ),
                 DataColumn(
-                  label: Text('Aksi'),
+                  label: Text('Action'),
                   // numeric: true,
                 ),
               ],

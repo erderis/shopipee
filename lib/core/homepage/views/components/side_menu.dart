@@ -50,13 +50,13 @@ class SideMenu extends StatelessWidget {
 
                   DrawerMenu(
                     assetName: Assets.grid,
-                    title: 'Kategori',
+                    title: 'Category',
                     onTap: () => changeMenu(2),
                     isSelected: currentPage == 2 || currentPage == 5,
                   ),
                   DrawerMenu(
                     assetName: Assets.package,
-                    title: 'Produk',
+                    title: 'Product',
                     onTap: () => changeMenu(1),
                     isSelected: currentPage == 1,
                   ),
@@ -69,7 +69,7 @@ class SideMenu extends StatelessWidget {
                   AppDivider(),
                   DrawerMenu(
                     assetName: Assets.globe,
-                    title: 'Bahasa',
+                    title: 'Language',
                     onTap: () => changeMenu(4),
                     isSelected: currentPage == 4,
                   ),

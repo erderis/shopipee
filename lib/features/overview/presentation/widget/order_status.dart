@@ -68,6 +68,50 @@ class OrderList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dummyList = [
+      {
+        'invoice': '12366',
+        'customer': 'Ervan Herdiansyah',
+        'from': 'Bandung',
+        'price': '\$10.2',
+        'status': 'Sent',
+      },
+      {
+        'invoice': '43456',
+        'customer': 'Aminda Vany',
+        'from': 'Jakarta',
+        'price': '\$12',
+        'status': 'Sent',
+      },
+      {
+        'invoice': '876544',
+        'customer': 'Difa Andika',
+        'from': 'Surabaya',
+        'price': '\$19.5',
+        'status': 'Sent',
+      },
+      {
+        'invoice': '90878',
+        'customer': 'Indra Aziz',
+        'from': 'Bali',
+        'price': '\$6.7',
+        'status': 'Sent',
+      },
+      {
+        'invoice': '43213',
+        'customer': 'Nadya Septiani',
+        'from': 'Bandung',
+        'price': '\$20',
+        'status': 'Sent',
+      },
+      {
+        'invoice': '56766',
+        'customer': 'Aldi Ramdani',
+        'from': 'Malang',
+        'price': '\$50.3',
+        'status': 'Sent',
+      },
+    ];
     return Container(
         height: 350,
         child: ClipRRect(
@@ -79,7 +123,7 @@ class OrderList extends StatelessWidget {
                     // size: ColumnSize.L,
                   ),
                   DataColumn(
-                    label: Text('CUSTOMERS'),
+                    label: Text('CUSTOMER'),
                   ),
                   DataColumn(
                     label: Text('FROM'),
@@ -93,12 +137,12 @@ class OrderList extends StatelessWidget {
                   ),
                 ],
                 rows: List<DataRow>.generate(
-                    100,
+                    dummyList.length,
                     (index) => DataRow(cells: [
-                          DataCell(Text('12366')),
-                          DataCell(Text('Ervan Herdiansyah')),
-                          DataCell(Text('Bandung')),
-                          DataCell(Text('\$10.2')),
+                          DataCell(Text(dummyList[index]['invoice']!)),
+                          DataCell(Text(dummyList[index]['customer']!)),
+                          DataCell(Text(dummyList[index]['from']!)),
+                          DataCell(Text(dummyList[index]['price']!)),
                           DataCell(Container(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 10),
@@ -106,7 +150,7 @@ class OrderList extends StatelessWidget {
                                 color: Palette.primaryColor,
                                 borderRadius: BorderRadius.circular(10)),
                             child: Text(
-                              'Dikirim',
+                              dummyList[index]['status']!,
                               style: TextStyle(color: Colors.white),
                             ),
                           ))
