@@ -10,11 +10,22 @@ Visit to [DEMO](https://shopipee.web.app/) to see a live demo. Note that it may 
 
 ### Desktop
 
-![screenshot desktop 1](https://github.com/erderis/shopipee/blob/master/screenshot/sweater.jpg?raw=true)
+![screenshot desktop 1](https://github.com/erderis/shopipee/blob/master/screenshot/desktop-1.png?raw=true)
+![screenshot desktop 2](https://github.com/erderis/shopipee/blob/master/screenshot/desktop-2.png?raw=true)
 
 ### Tablet
 
+![screenshot desktop 2](https://github.com/erderis/shopipee/blob/master/screenshot/tablet-1.png?raw=true)
+![screenshot desktop 2](https://github.com/erderis/shopipee/blob/master/screenshot/tablet-2.png?raw=true)
+![screenshot desktop 2](https://github.com/erderis/shopipee/blob/master/screenshot/tablet-3.png?raw=true)
+
 ### Mobile
+
+![screenshot desktop 2](https://github.com/erderis/shopipee/blob/master/screenshot/mobile-1.png?raw=true)
+![screenshot desktop 2](https://github.com/erderis/shopipee/blob/master/screenshot/mobile-2.png?raw=true)
+![screenshot desktop 2](https://github.com/erderis/shopipee/blob/master/screenshot/mobile-3.png?raw=true)
+![screenshot desktop 2](https://github.com/erderis/shopipee/blob/master/screenshot/mobile-4.png?raw=true)
+![screenshot desktop 2](https://github.com/erderis/shopipee/blob/master/screenshot/mobile-5.png?raw=true)
 
 ## Feature
 
