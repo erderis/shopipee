@@ -1,16 +1,25 @@
-# portfolio
+# SHOPIPEE: Flutter Admin Panel with Clean Architecture (and TDD)
 
-A new Flutter project.
+Shopipee is a product sales admin panel flutter application. this project was created to explore and implement clean architecture and test-driven-development.
 
-## Getting Started
+## Screenshot
 
-This project is a starting point for a Flutter application.
+## Feature
 
-A few resources to get you started if this is your first Flutter project:
+New features available so far include:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Overview
+  The overview shows several statistics and data which includes monthly income and sales data, traffic, activity, and order lists.
+- Category
+  This feature is intended to create, read, update, and delete product categories. Until now, the category feature already has create and read features.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Some of the features that will be developed next are:
+
+- Product
+- Localization (Language)
+- Theme
+- Notification
+
+## Contribution
+
+UI design inspired by [Khandaker Rasel](https://dribbble.com/shots/6568944-Analytics-Admin-UI-Design)
