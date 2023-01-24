@@ -19,7 +19,7 @@ class CategoryImageRemoteImpl implements CategoryImageRemote {
       Uint8List imageData = await XFile(filePath).readAsBytes();
       final storageRef = storage.ref();
       final storageReference =
-          storageRef.child("category/${filePath.split('/').last}.png");
+          storageRef.child("category/${filePath.split('/').last}.jpg");
       UploadTask uploadTask = storageReference.putData(imageData);
       final res = await uploadTask;
       return res.ref.getDownloadURL();
