@@ -55,19 +55,20 @@ class CategoryView extends StatelessWidget {
                 if (state is Loading)
                   return AspectRatio(
                       aspectRatio: 5, child: Lottie.asset(Assets.loading));
-                else if (state is Loaded) if (state.listCategory.isNotEmpty) {
-                  return CategoryList(
-                    listCategory: state.listCategory,
-                  );
-                } else {
-                  return Expanded(
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text('Data is Empty'),
-                    ),
-                  );
-                }
-                else if (state is Error)
+                else if (state is Loaded) {
+                  if (state.listCategory.isNotEmpty) {
+                    return CategoryList(
+                      listCategory: state.listCategory,
+                    );
+                  } else {
+                    return Expanded(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text('Data is Empty'),
+                      ),
+                    );
+                  }
+                } else if (state is Error)
                   return Expanded(
                     child: Align(
                       alignment: Alignment.center,
@@ -123,15 +124,13 @@ class CategoryList extends StatelessWidget {
                           // selected: true,
                           // onSelectChanged: (value) {},
                           cells: [
-                            DataCell(Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: defaultPadding / 2),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image.network(
-                                  listCategory[index].image,
-                                  fit: BoxFit.cover,
-                                ),
+                            DataCell(ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.network(
+                                listCategory[index].image,
+                                fit: BoxFit.cover,
+                                width: 50,
+                                height: 50,
                               ),
                             )),
                             DataCell(Text(

@@ -107,8 +107,12 @@ class AddCategoryView extends StatelessWidget {
                                 width: 100,
                                 height: 100,
                                 child: foundation.kIsWeb
-                                    ? Image.network(imagePath)
-                                    : Image.file(File(imagePath))),
+                                    ? Image.network(
+                                        imagePath,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.file(File(imagePath),
+                                        fit: BoxFit.cover)),
                           ),
                           EditSelectedCatategoryImage()
                         ],
@@ -121,7 +125,8 @@ class AddCategoryView extends StatelessWidget {
                                 child: SizedBox(
                                     width: 100,
                                     height: 100,
-                                    child: Image.network(imageCategoryDefault)),
+                                    child: Image.network(imageCategoryDefault,
+                                        fit: BoxFit.cover)),
                               ),
                               EditSelectedCatategoryImage()
                             ],
@@ -187,6 +192,9 @@ class AddCategoryView extends StatelessWidget {
             BlocConsumer<CategoryBloc, CategoryState>(
                 listener: (context, state) {
               if (state is Sucess) {
+                RepositoryProvider.of<CategoryImagePickerCubit>(context)
+                    .deleteImage();
+
                 RepositoryProvider.of<NavbarCubit>(context).changePage(2);
                 context.read<CategoryBloc>().add(GetCategoryEvent());
               } else if (state is Error) {
