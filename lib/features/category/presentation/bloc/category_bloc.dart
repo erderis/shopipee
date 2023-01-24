@@ -8,6 +8,7 @@ import 'package:portfolio/features/category/domain/usecases/add_category.dart';
 import 'package:portfolio/features/category/domain/usecases/delete_category.dart';
 import 'package:portfolio/features/category/domain/usecases/get_category.dart';
 import 'package:portfolio/features/category/domain/usecases/update_category.dart';
+import 'package:portfolio/features/category/domain/usecases/upload_category_image.dart';
 import 'package:portfolio/utils/helpers/map_failure_to_message.dart';
 
 part 'category_event.dart';
@@ -18,13 +19,15 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   final AddCategory addCategory;
   final UpdateCategory updateCategory;
   final DeleteCategory deleteCategory;
+  final UploadCategoryImage uploadCategoryImage;
 
-  CategoryBloc(
-      {required this.getCategory,
-      required this.addCategory,
-      required this.updateCategory,
-      required this.deleteCategory})
-      : super(Empty()) {
+  CategoryBloc({
+    required this.getCategory,
+    required this.addCategory,
+    required this.updateCategory,
+    required this.deleteCategory,
+    required this.uploadCategoryImage,
+  }) : super(Empty()) {
     on<CategoryEvent>((event, emit) async {
       if (event is GetCategoryEvent) {
         emit(Loading());
@@ -32,31 +35,67 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
         failureOrListCategory.fold(
             (failure) => emit(Error(message: mapFailureToMessage(failure))),
             (listCategory) {
-          List<bool> listSelected = [];
-          listCategory.forEach(
-            (_) {
-              listSelected.add(false);
-            },
-          );
-
           emit(Loaded(listCategory: listCategory));
         });
       }
       if (event is AddCategoryEvent) {
         emit(Loading());
-        final failureOrVoid = await addCategory(
-            AddCategoryParams(dataCategory: event.dataCategory));
-        failureOrVoid.fold(
+        late String imageURL;
+        final failureOrImageURL = await uploadCategoryImage(
+            UploadCategoriImageParams(filePath: event.dataCategory.image));
+        failureOrImageURL.fold(
             (failure) => emit(Error(message: mapFailureToMessage(failure))),
-            (_) => emit(Sucess()));
+            (newImageURL) {
+          imageURL = newImageURL;
+        });
+        final data = event.dataCategory;
+        CategoryModel newData = CategoryModel(
+            id: data.id,
+            image: imageURL,
+            name: data.name,
+            createdAt: data.createdAt,
+            updatedAt: data.updatedAt);
+        final failureOrVoid =
+            await addCategory(AddCategoryParams(dataCategory: newData));
+        failureOrVoid.fold((failure) {
+          emit(Error(message: mapFailureToMessage(failure)));
+        }, (_) {
+          emit(Sucess());
+        });
       }
       if (event is UpdateCategoryEvent) {
         emit(Loading());
-        final failureOrVoid = await updateCategory(
-            UpdateCategoryParams(dataCategory: event.dataCategory));
-        failureOrVoid.fold(
-            (failure) => emit(Error(message: mapFailureToMessage(failure))),
-            (_) => emit(Sucess()));
+        if (event.withNewImage) {
+          late String imageURL;
+
+          final failureOrImageURL = await uploadCategoryImage(
+              UploadCategoriImageParams(filePath: event.dataCategory.image));
+          failureOrImageURL.fold(
+              (failure) => emit(Error(message: mapFailureToMessage(failure))),
+              (newImageURL) {
+            imageURL = newImageURL;
+          });
+          final data = event.dataCategory;
+          CategoryModel newData = CategoryModel(
+              id: data.id,
+              image: imageURL,
+              name: data.name,
+              createdAt: data.createdAt,
+              updatedAt: data.updatedAt);
+          final failureOrVoid =
+              await addCategory(AddCategoryParams(dataCategory: newData));
+          failureOrVoid.fold((failure) {
+            emit(Error(message: mapFailureToMessage(failure)));
+          }, (_) {
+            emit(Sucess());
+          });
+        } else {
+          final failureOrVoid = await updateCategory(
+              UpdateCategoryParams(dataCategory: event.dataCategory));
+          failureOrVoid.fold(
+              (failure) => emit(Error(message: mapFailureToMessage(failure))),
+              (_) => emit(Sucess()));
+        }
       }
       if (event is DeleteCategoryEvent) {
         emit(Loading());

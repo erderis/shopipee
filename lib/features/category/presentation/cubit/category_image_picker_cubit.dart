@@ -14,6 +14,7 @@ class CategoryImagePickerCubit extends Cubit<String> {
     if (image != null) {
       isPicked = true;
       imagePath = image.path;
+      print(imagePath);
       emit(image.path);
     }
   }

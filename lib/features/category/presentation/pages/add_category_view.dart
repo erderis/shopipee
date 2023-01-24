@@ -61,9 +61,8 @@ class AddCategoryView extends StatelessWidget {
           createdAt: dataCategory.createdAt,
           updatedAt: DateTime.now());
 
-      context
-          .read<CategoryBloc>()
-          .add(UpdateCategoryEvent(dataCategory: categoryModel));
+      context.read<CategoryBloc>().add(UpdateCategoryEvent(
+          dataCategory: categoryModel, withNewImage: imagePath.isNotEmpty));
     }
   }
 
@@ -100,14 +99,19 @@ class AddCategoryView extends StatelessWidget {
             BlocBuilder<CategoryImagePickerCubit, String>(
               builder: (context, imagePath) {
                 return imagePath.isNotEmpty
-                    ? ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: SizedBox(
-                            width: 100,
-                            height: 100,
-                            child: foundation.kIsWeb
-                                ? Image.network(imagePath)
-                                : Image.file(File(imagePath))),
+                    ? Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(5),
+                            child: SizedBox(
+                                width: 100,
+                                height: 100,
+                                child: foundation.kIsWeb
+                                    ? Image.network(imagePath)
+                                    : Image.file(File(imagePath))),
+                          ),
+                          EditSelectedCatategoryImage()
+                        ],
                       )
                     : imageCategoryDefault != null
                         ? Stack(
@@ -119,27 +123,7 @@ class AddCategoryView extends StatelessWidget {
                                     height: 100,
                                     child: Image.network(imageCategoryDefault)),
                               ),
-                              Positioned(
-                                right: 5,
-                                top: 5,
-                                child: InkWell(
-                                  onTap: (() => RepositoryProvider.of<
-                                          CategoryImagePickerCubit>(context)
-                                      .pickImage()),
-                                  child: Container(
-                                    width: 30,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        shape: BoxShape.circle),
-                                    child: Icon(
-                                      Icons.edit,
-                                      color: Palette.primaryColor,
-                                      size: 15,
-                                    ),
-                                  ),
-                                ),
-                              )
+                              EditSelectedCatategoryImage()
                             ],
                           )
                         : InkWell(
@@ -233,6 +217,35 @@ class AddCategoryView extends StatelessWidget {
                     });
             })
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class EditSelectedCatategoryImage extends StatelessWidget {
+  const EditSelectedCatategoryImage({
+    foundation.Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      right: 5,
+      top: 5,
+      child: InkWell(
+        onTap: (() => RepositoryProvider.of<CategoryImagePickerCubit>(context)
+            .pickImage()),
+        child: Container(
+          width: 30,
+          height: 30,
+          decoration:
+              BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+          child: Icon(
+            Icons.edit,
+            color: Palette.primaryColor,
+            size: 15,
+          ),
         ),
       ),
     );

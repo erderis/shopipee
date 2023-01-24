@@ -13,6 +13,7 @@ import 'package:portfolio/features/category/domain/usecases/add_category.dart';
 import 'package:portfolio/features/category/domain/usecases/delete_category.dart';
 import 'package:portfolio/features/category/domain/usecases/get_category.dart';
 import 'package:portfolio/features/category/domain/usecases/update_category.dart';
+import 'package:portfolio/features/category/domain/usecases/upload_category_image.dart';
 import 'package:portfolio/features/category/presentation/bloc/category_bloc.dart';
 
 import 'category_bloc_test.mocks.dart';
@@ -21,7 +22,8 @@ import 'category_bloc_test.mocks.dart';
   MockSpec<GetCategory>(),
   MockSpec<AddCategory>(),
   MockSpec<UpdateCategory>(),
-  MockSpec<DeleteCategory>()
+  MockSpec<DeleteCategory>(),
+  MockSpec<UploadCategoryImage>()
 ])
 void main() {
   late CategoryBloc categoryBloc;
@@ -29,6 +31,7 @@ void main() {
   late MockAddCategory mockAddCategory;
   late MockUpdateCategory mockUpdateCategory;
   late MockDeleteCategory mockDeleteCategory;
+  late MockUploadCategoryImage mockUploadCategoryImage;
 
   final tListCategory = [
     Category(
@@ -51,11 +54,13 @@ void main() {
     mockAddCategory = MockAddCategory();
     mockUpdateCategory = MockUpdateCategory();
     mockDeleteCategory = MockDeleteCategory();
+    mockUploadCategoryImage = MockUploadCategoryImage();
     categoryBloc = CategoryBloc(
         getCategory: mockGetCategory,
         addCategory: mockAddCategory,
         updateCategory: mockUpdateCategory,
-        deleteCategory: mockDeleteCategory);
+        deleteCategory: mockDeleteCategory,
+        uploadCategoryImage: mockUploadCategoryImage);
   });
 
   group('Get Category', () {
@@ -100,8 +105,12 @@ void main() {
     blocTest<CategoryBloc, CategoryState>(
       'Should get data from the getcategory usecase',
       build: (() => categoryBloc),
-      setUp: () => when(mockAddCategory(any))
-          .thenAnswer((_) async => Right(tCategoryModel)),
+      setUp: () {
+        when(mockAddCategory(any))
+            .thenAnswer((_) async => Right('urlImage'));
+        when(mockAddCategory(any))
+            .thenAnswer((_) async => Right(tCategoryModel));
+      },
       act: (bloc) => bloc.add(AddCategoryEvent(dataCategory: tCategoryModel)),
       verify: (bloc) =>
           mockAddCategory(AddCategoryParams(dataCategory: tCategoryModel)),
@@ -131,8 +140,8 @@ void main() {
       build: (() => categoryBloc),
       setUp: () => when(mockUpdateCategory(any))
           .thenAnswer((_) async => Right(tCategoryModel)),
-      act: (bloc) =>
-          bloc.add(UpdateCategoryEvent(dataCategory: tCategoryModel)),
+      act: (bloc) => bloc.add(UpdateCategoryEvent(
+          dataCategory: tCategoryModel, withNewImage: true)),
       verify: (bloc) => mockUpdateCategory(
           UpdateCategoryParams(dataCategory: tCategoryModel)),
     );
@@ -141,8 +150,8 @@ void main() {
       build: (() => categoryBloc),
       setUp: () => when(mockUpdateCategory(any))
           .thenAnswer((_) async => Right(tCategoryModel)),
-      act: (bloc) =>
-          bloc.add(UpdateCategoryEvent(dataCategory: tCategoryModel)),
+      act: (bloc) => bloc.add(UpdateCategoryEvent(
+          dataCategory: tCategoryModel, withNewImage: true)),
       expect: () => <CategoryState>[Loading(), Sucess()],
     );
     blocTest<CategoryBloc, CategoryState>(
@@ -150,8 +159,8 @@ void main() {
       build: (() => categoryBloc),
       setUp: () => when(mockUpdateCategory(any))
           .thenAnswer((_) async => Left(ServerFailure())),
-      act: (bloc) =>
-          bloc.add(UpdateCategoryEvent(dataCategory: tCategoryModel)),
+      act: (bloc) => bloc.add(UpdateCategoryEvent(
+          dataCategory: tCategoryModel, withNewImage: true)),
       expect: () =>
           <CategoryState>[Loading(), Error(message: SERVER_FAILURE_MESSAGE)],
     );

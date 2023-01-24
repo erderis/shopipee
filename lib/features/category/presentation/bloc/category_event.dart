@@ -17,8 +17,9 @@ class AddCategoryEvent extends CategoryEvent {
 
 class UpdateCategoryEvent extends CategoryEvent {
   final CategoryModel dataCategory;
+  final bool withNewImage;
 
-  UpdateCategoryEvent({required this.dataCategory});
+  UpdateCategoryEvent({required this.dataCategory, required this.withNewImage});
 }
 
 class DeleteCategoryEvent extends CategoryEvent {
