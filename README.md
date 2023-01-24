@@ -21,7 +21,7 @@ Visit to [DEMO](https://shopipee.web.app/) to see a live demo. Note that it may 
 
 ![screenshot mobile](https://github.com/erderis/shopipee/blob/master/screenshot/mobile.png?raw=true)
 
-## Feature
+## Features
 
 New features available so far include:
 
