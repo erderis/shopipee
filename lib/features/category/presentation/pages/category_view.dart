@@ -124,13 +124,15 @@ class CategoryList extends StatelessWidget {
                           // selected: true,
                           // onSelectChanged: (value) {},
                           cells: [
-                            DataCell(ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.network(
-                                listCategory[index].image,
-                                fit: BoxFit.cover,
-                                width: 50,
-                                height: 50,
+                            DataCell(SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.network(
+                                  listCategory[index].image,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             )),
                             DataCell(Text(
