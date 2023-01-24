@@ -1,8 +1,20 @@
 # SHOPIPEE: Flutter Admin Panel with Clean Architecture (and TDD)
 
-Shopipee is a product sales admin panel flutter application. this project was created to explore and implement clean architecture and test-driven-development.
+Shopipee is a product sales admin panel flutter application. This project was created to explore and implement clean architecture and test-driven-development.
+
+## Demo
+
+Visit to [DEMO](https://shopipee.web.app/) to see a live demo. Note that it may take up to 10 seconds when it loads the first time.
 
 ## Screenshot
+
+### Desktop
+
+![screenshot desktop 1](https://github.com/erderis/shopipee/blob/master/screenshot/sweater.jpg?raw=true)
+
+### Tablet
+
+### Mobile
 
 ## Feature
 
