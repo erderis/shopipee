@@ -106,7 +106,7 @@ void main() {
       'Should get data from the getcategory usecase',
       build: (() => categoryBloc),
       setUp: () {
-        when(mockAddCategory(any))
+        when(mockUploadCategoryImage(any))
             .thenAnswer((_) async => Right('urlImage'));
         when(mockAddCategory(any))
             .thenAnswer((_) async => Right(tCategoryModel));
@@ -118,16 +118,24 @@ void main() {
     blocTest<CategoryBloc, CategoryState>(
       'Should emit [loading, success] when add data is successful',
       build: (() => categoryBloc),
-      setUp: () => when(mockAddCategory(any))
-          .thenAnswer((_) async => Right(tCategoryModel)),
+      setUp: () {
+        when(mockUploadCategoryImage(any))
+            .thenAnswer((_) async => Right('urlImage'));
+        when(mockAddCategory(any))
+            .thenAnswer((_) async => Right(tCategoryModel));
+      },
       act: (bloc) => bloc.add(AddCategoryEvent(dataCategory: tCategoryModel)),
       expect: () => <CategoryState>[Loading(), Sucess()],
     );
     blocTest<CategoryBloc, CategoryState>(
       'Should emit [loading, error] when add data to remote is not successful',
       build: (() => categoryBloc),
-      setUp: () => when(mockAddCategory(any))
-          .thenAnswer((_) async => Left(ServerFailure())),
+      setUp: () {
+        when(mockUploadCategoryImage(any))
+            .thenAnswer((_) async => Right('urlImage'));
+        when(mockAddCategory(any))
+            .thenAnswer((_) async => Left(ServerFailure()));
+      },
       act: (bloc) => bloc.add(AddCategoryEvent(dataCategory: tCategoryModel)),
       expect: () =>
           <CategoryState>[Loading(), Error(message: SERVER_FAILURE_MESSAGE)],
@@ -135,35 +143,93 @@ void main() {
   });
 
   group('Update Category', () {
-    blocTest<CategoryBloc, CategoryState>(
-      'Should get data from the getcategory usecase',
-      build: (() => categoryBloc),
-      setUp: () => when(mockUpdateCategory(any))
-          .thenAnswer((_) async => Right(tCategoryModel)),
-      act: (bloc) => bloc.add(UpdateCategoryEvent(
-          dataCategory: tCategoryModel, withNewImage: true)),
-      verify: (bloc) => mockUpdateCategory(
-          UpdateCategoryParams(dataCategory: tCategoryModel)),
-    );
-    blocTest<CategoryBloc, CategoryState>(
-      'Should emit [loading, success] when add data is successful',
-      build: (() => categoryBloc),
-      setUp: () => when(mockUpdateCategory(any))
-          .thenAnswer((_) async => Right(tCategoryModel)),
-      act: (bloc) => bloc.add(UpdateCategoryEvent(
-          dataCategory: tCategoryModel, withNewImage: true)),
-      expect: () => <CategoryState>[Loading(), Sucess()],
-    );
-    blocTest<CategoryBloc, CategoryState>(
-      'Should emit [loading, error] when add data to remote is not successful',
-      build: (() => categoryBloc),
-      setUp: () => when(mockUpdateCategory(any))
-          .thenAnswer((_) async => Left(ServerFailure())),
-      act: (bloc) => bloc.add(UpdateCategoryEvent(
-          dataCategory: tCategoryModel, withNewImage: true)),
-      expect: () =>
-          <CategoryState>[Loading(), Error(message: SERVER_FAILURE_MESSAGE)],
-    );
+    group('when with images', () {
+      blocTest<CategoryBloc, CategoryState>(
+        'Should get data from the getcategory usecase',
+        build: (() => categoryBloc),
+        setUp: () {
+          when(mockUploadCategoryImage(any))
+              .thenAnswer((_) async => Right('urlImage'));
+          when(mockUpdateCategory(any))
+              .thenAnswer((_) async => Right(tCategoryModel));
+        },
+        act: (bloc) => bloc.add(UpdateCategoryEvent(
+            dataCategory: tCategoryModel, withNewImage: true)),
+        verify: (bloc) => mockUpdateCategory(
+            UpdateCategoryParams(dataCategory: tCategoryModel)),
+      );
+      blocTest<CategoryBloc, CategoryState>(
+        'Should emit [loading, success] when add data is successful',
+        build: (() => categoryBloc),
+        setUp: () {
+          when(mockUploadCategoryImage(any))
+              .thenAnswer((_) async => Right('urlImage'));
+          when(mockUpdateCategory(any))
+              .thenAnswer((_) async => Right(tCategoryModel));
+        },
+        act: (bloc) => bloc.add(UpdateCategoryEvent(
+            dataCategory: tCategoryModel, withNewImage: true)),
+        expect: () => <CategoryState>[Loading(), Sucess()],
+      );
+      blocTest<CategoryBloc, CategoryState>(
+        'Should emit [loading, error] when add data to remote is not successful',
+        build: (() => categoryBloc),
+        setUp: () {
+          when(mockUploadCategoryImage(any))
+              .thenAnswer((_) async => Right('urlImage'));
+          when(mockUpdateCategory(any))
+              .thenAnswer((_) async => Left(ServerFailure()));
+        },
+        act: (bloc) => bloc.add(UpdateCategoryEvent(
+            dataCategory: tCategoryModel, withNewImage: true)),
+        expect: () =>
+            <CategoryState>[Loading(), Error(message: SERVER_FAILURE_MESSAGE)],
+      );
+    });
+
+    group('when without new image', () {
+      blocTest<CategoryBloc, CategoryState>(
+        'Should get data from the getcategory usecase',
+        build: (() => categoryBloc),
+        setUp: () {
+          when(mockUploadCategoryImage(any))
+              .thenAnswer((_) async => Right('urlImage'));
+          when(mockUpdateCategory(any))
+              .thenAnswer((_) async => Right(tCategoryModel));
+        },
+        act: (bloc) => bloc.add(UpdateCategoryEvent(
+            dataCategory: tCategoryModel, withNewImage: false)),
+        verify: (bloc) => mockUpdateCategory(
+            UpdateCategoryParams(dataCategory: tCategoryModel)),
+      );
+      blocTest<CategoryBloc, CategoryState>(
+        'Should emit [loading, success] when add data is successful',
+        build: (() => categoryBloc),
+        setUp: () {
+          when(mockUploadCategoryImage(any))
+              .thenAnswer((_) async => Right('urlImage'));
+          when(mockUpdateCategory(any))
+              .thenAnswer((_) async => Right(tCategoryModel));
+        },
+        act: (bloc) => bloc.add(UpdateCategoryEvent(
+            dataCategory: tCategoryModel, withNewImage: false)),
+        expect: () => <CategoryState>[Loading(), Sucess()],
+      );
+      blocTest<CategoryBloc, CategoryState>(
+        'Should emit [loading, error] when add data to remote is not successful',
+        build: (() => categoryBloc),
+        setUp: () {
+          when(mockUploadCategoryImage(any))
+              .thenAnswer((_) async => Right('urlImage'));
+          when(mockUpdateCategory(any))
+              .thenAnswer((_) async => Left(ServerFailure()));
+        },
+        act: (bloc) => bloc.add(UpdateCategoryEvent(
+            dataCategory: tCategoryModel, withNewImage: false)),
+        expect: () =>
+            <CategoryState>[Loading(), Error(message: SERVER_FAILURE_MESSAGE)],
+      );
+    });
   });
 
   group('Delete Category', () {
