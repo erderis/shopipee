@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:portfolio/core/homepage/cubit/navbar_cubit.dart';
 import 'package:portfolio/features/category/presentation/cubit/update_params_cubit.dart';
+import 'package:portfolio/utils/helpers/show_toast.dart';
 import '../../../../constants/assets/assets.dart';
 import '../../../../constants/colors/palette.dart';
 import '../../../../widgets/global_text_field.dart';
@@ -75,13 +76,15 @@ class ListButtonTable extends StatelessWidget {
         //   icon: Assets.alertCircle,
         //   onTap: () {},
         // ),
-        // SizedBox(
-        //   width: 10,
-        // ),
-        // ItemButtonOrder(
-        //   icon: Assets.trash,
-        //   onTap: () {},
-        // ),
+        SizedBox(
+          width: 10,
+        ),
+        ItemButtonOrder(
+          icon: Assets.trash,
+          onTap: () {
+            showToast('This feature under development');
+          },
+        ),
         // SizedBox(
         //   width: 10,
         // ),
