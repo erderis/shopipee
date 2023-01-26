@@ -15,9 +15,11 @@ import 'features/category/presentation/bloc/category_bloc.dart';
 import 'features/overview/presentation/bloc/traffic_bloc.dart';
 import 'firebase_options.dart';
 import 'utils/helpers/injection_container.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   await di.init();
+  await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

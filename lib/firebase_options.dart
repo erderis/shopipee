@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -43,8 +44,8 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCWGQIULo_4YABY9pMRU5IvLy1T5-qSEgA',
+  static FirebaseOptions web = FirebaseOptions(
+    apiKey: dotenv.get('FIREBASE_API_KEY_WEB'),
     appId: '1:663337299852:web:b69be2f400fa61b049f0a9',
     messagingSenderId: '663337299852',
     projectId: 'erderis',
@@ -66,7 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '663337299852',
     projectId: 'erderis',
     storageBucket: 'erderis.appspot.com',
-    iosClientId: '663337299852-kv4ibgddd2gi9ohhrkr2g5tg01fmntrh.apps.googleusercontent.com',
+    iosClientId:
+        '663337299852-kv4ibgddd2gi9ohhrkr2g5tg01fmntrh.apps.googleusercontent.com',
     iosBundleId: 'id.deris.portfolio',
   );
 
@@ -76,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '663337299852',
     projectId: 'erderis',
     storageBucket: 'erderis.appspot.com',
-    iosClientId: '663337299852-kv4ibgddd2gi9ohhrkr2g5tg01fmntrh.apps.googleusercontent.com',
+    iosClientId:
+        '663337299852-kv4ibgddd2gi9ohhrkr2g5tg01fmntrh.apps.googleusercontent.com',
     iosBundleId: 'id.deris.portfolio',
   );
 }
