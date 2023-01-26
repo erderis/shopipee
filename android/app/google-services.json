@@ -29,6 +29,13 @@
             {
               "client_id": "663337299852-fapsjr4dntvgmnm3ld96gu7jfhipu968.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "663337299852-kv4ibgddd2gi9ohhrkr2g5tg01fmntrh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "id.deris.portfolio"
+              }
             }
           ]
         }
