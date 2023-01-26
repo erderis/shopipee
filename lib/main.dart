@@ -19,7 +19,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   await di.init();
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: "secure.env");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
