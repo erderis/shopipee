@@ -44,8 +44,7 @@ class DefaultFirebaseOptions {
     }
   }
 
-
-  static const FirebaseOptions web = FirebaseOptions(
+  static FirebaseOptions web = FirebaseOptions(
     apiKey: dotenv.get('FIREBASE_API_KEY_WEB'),
     appId: '1:663337299852:web:b69be2f400fa61b049f0a9',
     messagingSenderId: '663337299852',
@@ -54,8 +53,7 @@ class DefaultFirebaseOptions {
     storageBucket: 'erderis.appspot.com',
   );
 
-
-  static const FirebaseOptions android = FirebaseOptions(
+  static FirebaseOptions android = FirebaseOptions(
     apiKey: dotenv.get('FIREBASE_API_KEY_WEB'),
     appId: '1:663337299852:android:3b5e8eccc7289a9c49f0a9',
     messagingSenderId: '663337299852',
@@ -63,7 +61,7 @@ class DefaultFirebaseOptions {
     storageBucket: 'erderis.appspot.com',
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
+  static FirebaseOptions ios = FirebaseOptions(
     apiKey: dotenv.get('FIREBASE_API_KEY_WEB'),
     appId: '1:663337299852:ios:80ffb02e2e1cc1e249f0a9',
     messagingSenderId: '663337299852',
@@ -74,8 +72,7 @@ class DefaultFirebaseOptions {
     iosBundleId: 'id.deris.portfolio',
   );
 
-
-  static const FirebaseOptions macos = FirebaseOptions(
+  static FirebaseOptions macos = FirebaseOptions(
     apiKey: dotenv.get('FIREBASE_API_KEY_WEB'),
     appId: '1:663337299852:ios:80ffb02e2e1cc1e249f0a9',
     messagingSenderId: '663337299852',
