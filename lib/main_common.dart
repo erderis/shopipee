@@ -16,10 +16,12 @@ import 'features/category/presentation/bloc/category_bloc.dart';
 import 'features/overview/presentation/bloc/traffic_bloc.dart';
 import 'firebase_options.dart';
 import 'utils/helpers/injection_container.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> mainCommon(String env) async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
+  await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   late Color primaryColor;
   switch (env) {
@@ -40,7 +42,6 @@ class ShopipeeApp extends StatelessWidget {
   const ShopipeeApp({super.key, required this.primaryColor});
   final Color primaryColor;
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
