@@ -10,23 +10,35 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:portfolio/features/category/presentation/cubit/category_image_picker_cubit.dart';
 import 'package:portfolio/features/category/presentation/cubit/image_validator_cubit.dart';
 import 'package:portfolio/features/category/presentation/cubit/update_params_cubit.dart';
+import 'package:portfolio/utils/helpers/environtment.dart';
 import 'package:portfolio/utils/helpers/injection_container.dart' as di;
 import 'features/category/presentation/bloc/category_bloc.dart';
 import 'features/overview/presentation/bloc/traffic_bloc.dart';
 import 'firebase_options.dart';
 import 'utils/helpers/injection_container.dart';
 
-void main() async {
-  await di.init();
+Future<void> mainCommon(String env) async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(const MyApp());
+  await di.init();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  late Color primaryColor;
+  switch (env) {
+    case Environtment.dev:
+      primaryColor = Colors.blue;
+      break;
+    case Environtment.prod:
+      primaryColor = Colors.red;
+      break;
+  }
+
+  runApp(ShopipeeApp(
+    primaryColor: primaryColor,
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class ShopipeeApp extends StatelessWidget {
+  const ShopipeeApp({super.key, required this.primaryColor});
+  final Color primaryColor;
 
   // This widget is the root of your application.
   @override
