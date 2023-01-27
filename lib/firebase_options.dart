@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -43,8 +44,9 @@ class DefaultFirebaseOptions {
     }
   }
 
+
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: '',
+    apiKey: dotenv.get('FIREBASE_API_KEY_WEB'),
     appId: '1:663337299852:web:b69be2f400fa61b049f0a9',
     messagingSenderId: '663337299852',
     projectId: 'erderis',
@@ -52,8 +54,9 @@ class DefaultFirebaseOptions {
     storageBucket: 'erderis.appspot.com',
   );
 
+
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: '',
+    apiKey: dotenv.get('FIREBASE_API_KEY_WEB'),
     appId: '1:663337299852:android:3b5e8eccc7289a9c49f0a9',
     messagingSenderId: '663337299852',
     projectId: 'erderis',
@@ -61,7 +64,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: '',
+    apiKey: dotenv.get('FIREBASE_API_KEY_WEB'),
     appId: '1:663337299852:ios:80ffb02e2e1cc1e249f0a9',
     messagingSenderId: '663337299852',
     projectId: 'erderis',
@@ -71,8 +74,9 @@ class DefaultFirebaseOptions {
     iosBundleId: 'id.deris.portfolio',
   );
 
+
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: '',
+    apiKey: dotenv.get('FIREBASE_API_KEY_WEB'),
     appId: '1:663337299852:ios:80ffb02e2e1cc1e249f0a9',
     messagingSenderId: '663337299852',
     projectId: 'erderis',
